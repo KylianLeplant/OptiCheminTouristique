@@ -7,58 +7,24 @@
 #include "Instance.hpp"
 
 // Fonction pour obtenir la liste de tous les POIs visités dans une solution
-std::vector<int> getVisitedPOI(const Solution& solution)
-{
-    std::vector<int> visitedPOIs;
+std::vector<int> getVisitedPOI(const Solution& solution);
 
-    for (std::vector<int> dailyRoute : solution.v_v_Sequence_Id_Par_Jour)
-    {
-        visitedPOIs.insert(visitedPOIs.end(), dailyRoute.begin(), dailyRoute.end()); //ajout des POIs visités chaque jour
-    }
-
-    return visitedPOIs;
-
-}
+// Fonction pour obtenir la liste de tous les hôtels visités dans une solution
+std::vector<int> getVisitedHotel(const Solution& solution, Instance& instance);
 
 // Fonction pour vérifier si un POI spécifique a été visité dans la solution
-bool isPOIvisited(const Solution& solution, int poiID)
-{
-    std::vector<int> visitedPOIs = getVisitedPOI(solution);
-    return std::find(visitedPOIs.begin(), visitedPOIs.end(), poiID) != visitedPOIs.end();
-}
+bool isPOIvisited(const Solution& solution, int poiID);
 
-bool isHotelVisited(const Solution& solution, int hotelID)
-{
-    return std::find(solution.v_Id_Hotel_Intermedaire.begin(), solution.v_Id_Hotel_Intermedaire.end(), hotelID) != solution.v_Id_Hotel_Intermedaire.end();
-}
+// Fonction pour vérifier si un hôtel spécifique a été visité dans la solution
+bool isHotelVisited(const Solution& solution, int hotelID);
 
-void appendPOI(Instance& instance, Solution& solution, int poiID, int atIndex = -1)
-{
-    // Si pas de jours dans la solution, rien à faire
-    if (solution.v_v_Sequence_Id_Par_Jour.empty()) {
-        return;
-    }
+// Fonction pour ajouter un POI à la solution
+void appendPOI(Instance& instance, Solution& solution, int poiID, int atIndex = -1);
 
-    // Dernier jour (index non signé)
-    std::size_t dayIndex = solution.v_v_Sequence_Id_Par_Jour.size() - 1;
-    auto &dayRoute = solution.v_v_Sequence_Id_Par_Jour[dayIndex];
+// Fonction pour ajouter un hôtel intermédiaire à la solution
+void appendHotel(Solution& solution, int hotelID);
 
-    // Calculer une position sûre dans [0, dayRoute.size()]
-    std::size_t pos;
-    if (atIndex < 0) {
-        // convention : atIndex < 0 -> append en fin
-        pos = dayRoute.size();
-    } else {
-        std::size_t requested = static_cast<std::size_t>(atIndex);
-        pos = (requested > dayRoute.size()) ? dayRoute.size() : requested; // clamp
-    }
+// Fonction pour comparer deux solutions
+bool equals(const Solution& sol1, const Solution& sol2);
 
-    dayRoute.insert(dayRoute.begin() + pos, poiID);
-    solution.i_valeur_fonction_objectif += instance.get_POI_Score(poiID);
-}
-
-void appendHotel(Solution& solution, int hotelID)
-{
-    solution.v_Id_Hotel_Intermedaire.push_back(hotelID);
-}
 #endif

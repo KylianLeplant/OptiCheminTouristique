@@ -1,4 +1,4 @@
-#define CHEMIN_DOSSIER_DONNEES "/........CHEMIN DONNEES....../"
+#define CHEMIN_DOSSIER_DONNEES "Data/"
 #define NOM_FICHIER_LISTE_FICHIER_DONNEES "data.txt"
 #define NOM_FICHIER_LISTE_SORTIE "sortie.txt"
 
@@ -8,6 +8,7 @@
 #include <algorithm>
 #include "Instance.hpp"
 #include "Solution.hpp"
+#include "utils.hpp"
 
 using namespace std;
 
@@ -16,6 +17,8 @@ int Resolution(Instance * instance);
 
 int main(int argc, const char * argv[])
 { 
+    // Diagnostic: utiliser stdio pour éviter d'utiliser iostream au tout début
+    std::fprintf(stderr, "Début du programme de résolution d'instances.\n");
     try
     {
         string s_tmp;
@@ -69,23 +72,51 @@ int main(int argc, const char * argv[])
             cout<<" Erreur lecture des données : chemin listant l'ensemble des données non valide. "<<endl;
         }
     }
-    
-    catch(string err)
+    catch (const std::exception& e)
     {
-        cout << "Erreur fatale : " <<endl;
-        cout << err <<endl;
+        std::cerr << "Exception std::exception : " << e.what() << std::endl;
+        return 1;
+    }
+    catch (...)
+    {
+        std::cerr << "Exception inconnue levée" << std::endl;
+        return 1;
     }
     return 0;
 }
 
 int Resolution(Instance * instance)
 {
+    std::cout << "Début de la résolution..." << std::endl;
     int i_val_Retour_Fct_obj=0;
     Solution * uneSolution = new Solution();
+    // S'assurer qu'il y a au moins un jour (évite accès hors-bornes sur v_v_Sequence_Id_Par_Jour[0])
+    if (uneSolution->v_v_Sequence_Id_Par_Jour.empty()) {
+        uneSolution->v_v_Sequence_Id_Par_Jour.push_back(std::vector<int>());
+    }
     vector<int> v_i_tmp ;
 
 /*INITIALISATION D'UN SOLUTION EN DUR POUR L'INSTANCE 1*/
     v_i_tmp.clear();
+
+    appendHotel(*uneSolution, 1);
+    appendPOI(*instance, *uneSolution, 0);
+    appendPOI(*instance, *uneSolution, 2);
+    std::cout << "POI : ";
+    for (int poi : uneSolution->v_v_Sequence_Id_Par_Jour[0]) {
+        std::cout << poi << " ";
+    }
+    appendPOI(*instance, *uneSolution, 5,1);
+    std::cout << "POI : ";
+    for (int poi : uneSolution->v_v_Sequence_Id_Par_Jour[0]) {
+        std::cout << poi << " ";
+    }
+
+
+
+
+
+
     uneSolution->v_Id_Hotel_Intermedaire.push_back(2);
     uneSolution->v_Date_Depart.push_back(0.0);
     uneSolution->v_Date_Depart.push_back(0.0);

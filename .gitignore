@@ -7,3 +7,4 @@ build/
 optichemin
 sortie.txt
 .vscode/
+.DS_Store

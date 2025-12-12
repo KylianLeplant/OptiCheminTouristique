@@ -74,5 +74,13 @@
         "text_encoding": "cpp",
         "cinttypes": "cpp",
         "variant": "cpp"
-    }
+    },
+    // Désactive la compilation par fichier unique et force l'utilisation du Makefile
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
+    "code-runner.executorMap": {
+        "cpp": "cd $dir && make && $workspaceRoot/optichemin"
+    },
+    "code-runner.runInTerminal": true,
+    // Force la tâche de build par défaut (Makefile)
+    "task.defaultBuildTask": "Build (Makefile)"
 }

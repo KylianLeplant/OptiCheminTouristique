@@ -22,7 +22,7 @@ std::vector<int> getVisitedPOI(const Solution& solution)
 }
 
 // Fonction pour obtenir la liste de tous les hôtels visités dans une solution
-std::vector<int> getVisitedHotel(const Solution& solution, Instance& instance)
+std::vector<int> getVisitedHotels(const Solution& solution, Instance& instance)
 {
     std::vector<int> visitedHotels = solution.v_Id_Hotel_Intermedaire;
     visitedHotels.insert(visitedHotels.begin(), instance.get_Id_Hotel_depart()); // Ajouter l'hôtel de départ (id 0)
@@ -39,9 +39,10 @@ bool isPOIvisited(const Solution& solution, int poiID)
 }
 
 // Fonction pour vérifier si un hôtel spécifique a été visité dans la solution
-bool isHotelVisited(const Solution& solution, int hotelID)
+bool isHotelVisited(const Solution& solution, Instance& instance, int hotelID)
 {
-    return std::find(solution.v_Id_Hotel_Intermedaire.begin(), solution.v_Id_Hotel_Intermedaire.end(), hotelID) != solution.v_Id_Hotel_Intermedaire.end();
+    std::vector<int> visitedHotels = getVisitedHotels(solution, instance);
+    return std::find(visitedHotels.begin(), visitedHotels.end(), hotelID) != visitedHotels.end();
 }
 
 // Fonction pour ajouter un POI à la solution

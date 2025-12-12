@@ -7,3 +7,4 @@ build/
 optichemin
 sortie.txt
 .vscode/
+/src/vc140.pdb

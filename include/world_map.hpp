@@ -2,6 +2,9 @@
 
 #include "hostel.hpp"
 #include "poi.hpp"
+#include <cstdint>
+#include <map>
+#include <unordered_map>
 #include <vector>
 
 // Represents a 2D map that contains Hostels and POIs.
@@ -12,6 +15,10 @@ class WorldMap {
 private:
   std::vector<Hostel> hostels; // A vector that contains the map's hostels
   std::vector<POI> pois;       // A vector that contains the map's POIs
+
+  mutable std::vector<float> distance_cache;
+  mutable int total_point_count = -1; // Cached total point count
+
 public:
   WorldMap() = default;
   ~WorldMap() = default;
@@ -47,4 +54,10 @@ public:
 
   // Returns the index of the ending hostel (always 1)
   int getEndingHostelIndex() const;
+
+  // Returns the distance between two points on the map.
+  // Must handle both hostels and POIs.
+  // Must handle caching. (TODO)
+  const float getDistanceBetweenPoints(const Point &point1,
+                                       const Point &point2) const;
 };

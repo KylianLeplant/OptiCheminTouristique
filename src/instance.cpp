@@ -112,3 +112,7 @@ Instance::Instance(const std::string &file_path) : file_path(file_path) {
 const WorldMap &Instance::getWorldMap() const { return world_map; }
 
 int Instance::getDayCount() const { return static_cast<int>(days.size()); }
+
+const Day &Instance::getDayByIndex(const int index) const {
+  return days.at(index);
+}

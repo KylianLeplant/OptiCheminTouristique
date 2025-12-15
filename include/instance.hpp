@@ -21,4 +21,5 @@ public:
 
   const WorldMap &getWorldMap() const; // Returns a copy of the world map
   int getDayCount() const;
+  const Day &getDayByIndex(const int index) const;
 };

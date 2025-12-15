@@ -1,16 +1,18 @@
 #include "point.hpp"
 #include "utils.hpp"
+#include <sys/types.h>
+
+// Initialize static member
+int Point::next_id = 0;
 
 // === LIFECYCLE ===
 
 // Default constructor
-Point::Point()
-    : id(utils::GenerateRandomID()), x(0.0f), y(0.0f), label("Unknown") {}
+Point::Point() : global_id(next_id++), x(0.0f), y(0.0f), label("Unknown") {}
 
 // Utility constructor
 Point::Point(float x, float y, const std::string &label)
-    : x(x), y(y), id(utils::GenerateRandomID()), label(label) {}
-
+    : global_id(next_id++), x(x), y(y), label(label) {}
 // Virtual destructor
 Point::~Point() = default;
 
@@ -26,4 +28,4 @@ float Point::getY() const { return y; }
 std::string Point::getLabel() const { return label; }
 
 // Returns the point's ID
-std::string Point::getID() const { return id; }
+int Point::getGlobalID() const { return global_id; }

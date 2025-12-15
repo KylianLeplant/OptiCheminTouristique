@@ -7,5 +7,8 @@
 
 class GeneticAlgorithm {
 private:
+  std::vector<Solution> population;
+  Instance &instance;
+
 public:
 };

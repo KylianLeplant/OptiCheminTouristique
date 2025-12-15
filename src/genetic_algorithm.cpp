@@ -28,7 +28,8 @@ std::vector<int> GeneticAlgorithm::findHostelsPath() {
       // Avoid the same hostel and check distance
       if (hostel_id != current_hostel_id &&
           std::find(hostels_path.begin(), hostels_path.end(), hostel_id) ==
-              hostels_path.end()) {
+              hostels_path.end() &&
+          hostel_id != inst.getWorldMap().getEndingHostelIndex()) {
         float distance = inst.getWorldMap().getDistanceBetweenPoints(
             inst.getWorldMap().getHostelByIndex(current_hostel_id),
             inst.getWorldMap().getHostelByIndex(hostel_id));

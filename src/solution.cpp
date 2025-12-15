@@ -3,10 +3,10 @@
 #include <iostream>
 #include <set>
 
-Solution::Solution() : score_value(0) {}
+Solution::Solution(const Instance& instance) : instance(instance), score_value(0) {}
 Solution::~Solution() = default;
 
-bool Solution::isValid(const Instance &instance) {
+bool Solution::isValid() const {
   bool valid = true;
   std::set<int> visited_pois;
   int score = 0;
@@ -155,4 +155,22 @@ bool Solution::isValid(const Instance &instance) {
   }
 
   return valid;
+}
+
+
+std::set<int> Solution::getVisitedHotels() const {
+  std::set<int> visitedHotels;
+  visitedHotels.insert(intermediate_hostels.begin(),
+                        intermediate_hostels.end());
+  visitedHotels.insert(instance.getWorldMap().getStartingHostelIndex());
+  visitedHotels.insert(instance.getWorldMap().getEndingHostelIndex());
+  return visitedHotels;
+}
+
+std::set<int> Solution::getVisitedPOIs() const {
+  std::set<int> visitedPOIs;
+  for (const auto& day_sequence : pois_sequence) {
+    visitedPOIs.insert(day_sequence.begin(), day_sequence.end());
+  }
+  return visitedPOIs;
 }

@@ -18,9 +18,17 @@ const std::string output_file_list = "sortie.txt";
 int main() {
 
   Instance inst(data_folder + "Inst1.txt");
-  Instance inst2(data_folder + "Inst20.txt");
-
-  GeneticAlgorithm ga(inst);
+  Instance inst2(data_folder + "Inst4.txt");
+  Visualizer viz(800, 600);
+  //viz.addFrame(std::make_unique<InstanceFrame>("Instance Frame",
+  //                                             viz.getDefaultArea(), inst));
+  viz.addFrame(std::make_unique<InstanceFrame>("Instance Frame 2",
+                                               viz.getDefaultArea(), inst2));
+  viz.addFrame(std::make_unique<Frame>("Basic Frame", viz.getDefaultArea()));
+  viz.addFrame(
+      std::make_unique<Frame>("Another Basic Frame", viz.getDefaultArea()));
+  viz.run();
+  GeneticAlgorithm ga(inst2);
   std::vector<int> path = ga.findHostelsPath();
   std::cout << "Computing hostels path:\n";
   for (int hostel : path) {
@@ -29,7 +37,7 @@ int main() {
   }
 
   // Hardcoded solution for testing validation
-  Solution sol;
+  Solution sol(inst2);
 
   sol.intermediate_hostels.push_back(2);
   sol.start_dates.push_back(0.0f);
@@ -40,22 +48,22 @@ int main() {
       {24, 32, 40, 33, 25, 19, 26, 34, 41, 47, 52, 56, 59, 61});
   sol.score_value = 816;
 
-  bool valid = sol.isValid(inst);
+  bool valid = sol.isValid();
   if (valid) {
     std::cout << "Solution is valid.\n";
   } else {
     std::cout << "Solution is invalid.\n";
   }
 
-  // Visualizer viz(800, 600);
-  // viz.addFrame(std::make_unique<InstanceFrame>("Instance Frame",
-  //                                              viz.getDefaultArea(), inst));
-  // viz.addFrame(std::make_unique<InstanceFrame>("Instance Frame 2",
-  //                                              viz.getDefaultArea(), inst2));
-  // viz.addFrame(std::make_unique<Frame>("Basic Frame", viz.getDefaultArea()));
-  // viz.addFrame(
-  //     std::make_unique<Frame>("Another Basic Frame", viz.getDefaultArea()));
-  // viz.run();
+  //Visualizer viz(800, 600);
+  ////viz.addFrame(std::make_unique<InstanceFrame>("Instance Frame",
+  ////                                             viz.getDefaultArea(), inst));
+  //viz.addFrame(std::make_unique<InstanceFrame>("Instance Frame 2",
+  //                                             viz.getDefaultArea(), inst2));
+  //viz.addFrame(std::make_unique<Frame>("Basic Frame", viz.getDefaultArea()));
+  //viz.addFrame(
+  //    std::make_unique<Frame>("Another Basic Frame", viz.getDefaultArea()));
+  //viz.run();
 
   return 0;
 }

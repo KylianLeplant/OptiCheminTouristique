@@ -2,10 +2,10 @@
 #include "instance.hpp"
 #include "solution.hpp"
 #include "world_map.hpp"
-
+#include <iostream>
 GeneticAlgorithm::GeneticAlgorithm(const Instance &i) : inst(i) {
   target_population_size = 1;
-  population.push_back(Solution());
+  population.push_back(Solution(inst));
 }
 
 std::vector<int> GeneticAlgorithm::findHostelsPath() {
@@ -30,6 +30,7 @@ std::vector<int> GeneticAlgorithm::findHostelsPath() {
           std::find(hostels_path.begin(), hostels_path.end(), hostel_id) ==
               hostels_path.end() &&
           hostel_id != inst.getWorldMap().getEndingHostelIndex()) {
+            
         float distance = inst.getWorldMap().getDistanceBetweenPoints(
             inst.getWorldMap().getHostelByIndex(current_hostel_id),
             inst.getWorldMap().getHostelByIndex(hostel_id));
@@ -41,7 +42,7 @@ std::vector<int> GeneticAlgorithm::findHostelsPath() {
         }
       }
     }
-
+    
     // Choose a random hostel among the reachable ones
     if (!reachable_hostels.empty()) {
       std::srand(std::time(nullptr));

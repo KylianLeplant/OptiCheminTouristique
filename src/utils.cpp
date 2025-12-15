@@ -3,6 +3,10 @@
 
 #include <random>
 #include <sstream>
+#include "utils.hpp"
+#include "Solution.hpp"
+#include <vector>
+#include <algorithm>
 
 namespace utils {
 static std::random_device rd;
@@ -36,4 +40,6 @@ std::string GenerateRandomID() {
   };
   return ss.str();
 }
+
+
 } // namespace utils

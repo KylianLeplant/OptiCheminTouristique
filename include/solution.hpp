@@ -2,6 +2,7 @@
 
 #include "instance.hpp"
 #include <vector>
+#include <set>
 
 // Represents one possible solution for a problem instance.
 class Solution {
@@ -18,13 +19,19 @@ public:
    */
 
   std::vector<std::vector<int>> pois_sequence;
+
   /**
    * Start date/time for each day in the solution.
    */
   std::vector<float> start_dates;
   int score_value;
 
-  Solution();
+  const Instance& instance;
+
+  Solution() = delete;
+  Solution(const Instance& instance);
   virtual ~Solution();
-  bool isValid(const Instance &instance);
+  bool isValid() const;
+  std::set<int> getVisitedHotels() const;
+  std::set<int> getVisitedPOIs() const;
 };

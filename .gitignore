@@ -1,10 +1,6 @@
-build/
-*.o
-*.obj
-*.exe
-*.out
-
-optichemin
-sortie.txt
+.DS_Store
+.xmake/
 .vscode/
+build/
+.cache/
 .DS_Store

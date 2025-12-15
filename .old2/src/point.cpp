@@ -1,4 +1,5 @@
 #include "point.hpp"
+#include "utils.hpp"
 #include <sys/types.h>
 
 // Initialize static member

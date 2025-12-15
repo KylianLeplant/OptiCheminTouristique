@@ -17,8 +17,8 @@ const std::string output_file_list = "sortie.txt";
 
 int main() {
 
-  Instance inst(data_folder + "Inst1.txt");
-  Instance inst2(data_folder + "Inst4.txt");
+  Instance inst2(data_folder + "Inst1.txt");
+  Instance inst(data_folder + "Inst4.txt");
 
   GeneticAlgorithm ga(inst2);
   std::vector<int> path = ga.findHostelsPath();
@@ -48,15 +48,15 @@ int main() {
     std::cout << "Solution is invalid.\n";
   }
 
-  //Visualizer viz(800, 600);
+  // Visualizer viz(800, 600);
   ////viz.addFrame(std::make_unique<InstanceFrame>("Instance Frame",
   ////                                             viz.getDefaultArea(), inst));
-  //viz.addFrame(std::make_unique<InstanceFrame>("Instance Frame 2",
-  //                                             viz.getDefaultArea(), inst2));
-  //viz.addFrame(std::make_unique<Frame>("Basic Frame", viz.getDefaultArea()));
-  //viz.addFrame(
-  //    std::make_unique<Frame>("Another Basic Frame", viz.getDefaultArea()));
-  //viz.run();
+  // viz.addFrame(std::make_unique<InstanceFrame>("Instance Frame 2",
+  //                                              viz.getDefaultArea(), inst2));
+  // viz.addFrame(std::make_unique<Frame>("Basic Frame", viz.getDefaultArea()));
+  // viz.addFrame(
+  //     std::make_unique<Frame>("Another Basic Frame", viz.getDefaultArea()));
+  // viz.run();
 
   return 0;
 }

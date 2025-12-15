@@ -2,6 +2,7 @@
 // #define NOM_FICHIER_LISTE_FICHIER_DONNEES "data.txt"
 // #define NOM_FICHIER_LISTE_SORTIE "sortie.txt"
 
+#include "genetic_algorithm.hpp"
 #include "instance.hpp"
 #include "solution.hpp"
 #include "viz/frame.hpp"
@@ -19,8 +20,17 @@ int main() {
   Instance inst(data_folder + "Inst1.txt");
   Instance inst2(data_folder + "Inst20.txt");
 
+  GeneticAlgorithm ga(inst);
+  std::vector<int> path = ga.findHostelsPath();
+  std::cout << "Computing hostels path:\n";
+  for (int hostel : path) {
+    std::cout << hostel << " - "
+              << inst.getWorldMap().getHostelByIndex(hostel).getLabel() << "\n";
+  }
+
   // Hardcoded solution for testing validation
   Solution sol;
+
   sol.intermediate_hostels.push_back(2);
   sol.start_dates.push_back(0.0f);
   sol.start_dates.push_back(0.0f);

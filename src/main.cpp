@@ -18,14 +18,15 @@ const std::string output_file_list = "sortie.txt";
 int main() {
 
   Instance inst(data_folder + "Inst1.txt");
-  Instance inst2(data_folder + "Inst20.txt");
+  Instance inst2(data_folder + "Inst4.txt");
 
-  GeneticAlgorithm ga(inst);
+  GeneticAlgorithm ga(inst2);
   std::vector<int> path = ga.findHostelsPath();
   std::cout << "Computing hostels path:\n";
   for (int hostel : path) {
     std::cout << hostel << " - "
-              << inst.getWorldMap().getHostelByIndex(hostel).getLabel() << "\n";
+              << inst2.getWorldMap().getHostelByIndex(hostel).getLabel()
+              << "\n";
   }
 
   // Hardcoded solution for testing validation

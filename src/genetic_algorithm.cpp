@@ -10,53 +10,83 @@ GeneticAlgorithm::GeneticAlgorithm(const Instance &i) : inst(i) {
 
 std::vector<int> GeneticAlgorithm::findHostelsPath() {
 
-  std::vector<int> hostels_path;
-  int inbetween_days_count = inst.getDayCount() - 1;
+  int give_up = 100;
 
-  while (hostels_path.size() < inbetween_days_count) {
+  std::vector<int> hostels_path;
+
+  // We need to count how many intermediate hostels we need.
+  // We need the number of days - 1 intermediate hostels.
+  int intermediate_hostel_count = inst.getDayCount() - 1;
+
+  while (hostels_path.size() < intermediate_hostel_count) {
+    std::cout << intermediate_hostel_count << " hostels needed, currently have "
+              << hostels_path.size() << "\n";
+
+    // Should we give up ?
+    if (give_up <= 0) {
+      std::cout
+          << "Failed to find a valid hostels path after multiple tries.\n";
+      break;
+    }
+
+    // Create a pool of available hostels to choose from.
+    int total_hostels = inst.getWorldMap().getHostelCount();
+    std::vector<int> available_hostels;
+    for (int i = 0; i < total_hostels; ++i) {
+      // Check if it's not the starting or ending hostel
+      if (i == inst.getWorldMap().getStartingHostelIndex() ||
+          i == inst.getWorldMap().getEndingHostelIndex()) {
+        continue;
+      }
+
+      // Check if it's not already in the path
+      // IMPORTANT : This check can be deleted to allow revisiting hostels,
+      // Which is not against the problem's rules.
+      if (std::find(hostels_path.begin(), hostels_path.end(), i) !=
+          hostels_path.end()) {
+        continue;
+      }
+      available_hostels.push_back(i);
+    }
+
+    // We now have a list of available hostels.
+    // As long as we need more intermediate hostels, we will pick one at random
+    // and add it to the path.
+
+    // Filter the list of available hostels to only those reachable from the
+    // last added hostel (or starting hostel if none added yet). If there are no
+    // reachable hostels, we will remove all added hostels and try again.
+    // After a set amount of attemps, we will give up.
+
+    std::vector<int> reachable_hostels;
     int current_hostel_id = hostels_path.empty()
                                 ? inst.getWorldMap().getStartingHostelIndex()
                                 : hostels_path.back();
-    int next_hostel_id = -1;
-
-    // Compute reachable hostels from current hostel
-    std::vector<int> reachable_hostels;
-    int total_hostels = inst.getWorldMap().getHostelCount();
-    int remaining_days_count = inbetween_days_count - hostels_path.size();
-
-    for (int hostel_id = 0; hostel_id < total_hostels; ++hostel_id) {
-      // Avoid the same hostel and check distance
-      if (hostel_id != current_hostel_id &&
-          std::find(hostels_path.begin(), hostels_path.end(), hostel_id) ==
-              hostels_path.end() &&
-          hostel_id != inst.getWorldMap().getEndingHostelIndex()) {
-            
-        float distance = inst.getWorldMap().getDistanceBetweenPoints(
-            inst.getWorldMap().getHostelByIndex(current_hostel_id),
-            inst.getWorldMap().getHostelByIndex(hostel_id));
-        // hostels_path.size() represents the current day (0-indexed)
-        int current_day = static_cast<int>(hostels_path.size());
-        float max_travel = inst.getDayByIndex(current_day).getDuration();
-        if (distance <= max_travel) {
-          reachable_hostels.push_back(hostel_id);
-        }
+    for (int hostel_id : available_hostels) {
+      // available_hostels and hostels_path are mutually exclusive by design.
+      if (inst.getWorldMap().getDistanceBetweenPoints(
+              inst.getWorldMap().getHostelByIndex(current_hostel_id),
+              inst.getWorldMap().getHostelByIndex(hostel_id)) <=
+          inst.getDayByIndex(static_cast<int>(hostels_path.size()))
+              .getDuration()) {
+        // Hostel is reachable
+        reachable_hostels.push_back(hostel_id);
       }
     }
-    
-    // Choose a random hostel among the reachable ones
-    if (!reachable_hostels.empty()) {
-      std::srand(std::time(nullptr));
-      next_hostel_id =
-          reachable_hostels[std::rand() % reachable_hostels.size()];
-      hostels_path.push_back(next_hostel_id);
-    } else {
-      // No reachable hostel, remove the last one if possible
-      if (!hostels_path.empty()) {
-        hostels_path.pop_back();
-      } else {
-        break; // Impossible to build a path}
-      }
+    // Is there at least one reachable hostel?
+    if (reachable_hostels.empty()) {
+      // Oops ! Remove all hostels added so far and try again.
+      hostels_path.clear();
+      --give_up;
+      continue;
     }
+
+    // Pick a random reachable hostel
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+    int random_index = std::rand() % reachable_hostels.size();
+    int next_hostel_id = reachable_hostels[random_index];
+    hostels_path.push_back(next_hostel_id);
   }
+
   return hostels_path;
 }

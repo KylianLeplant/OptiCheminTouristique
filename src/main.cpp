@@ -19,21 +19,14 @@ int main() {
 
   Instance inst(data_folder + "Inst1.txt");
   Instance inst2(data_folder + "Inst4.txt");
-  Visualizer viz(800, 600);
-  //viz.addFrame(std::make_unique<InstanceFrame>("Instance Frame",
-  //                                             viz.getDefaultArea(), inst));
-  viz.addFrame(std::make_unique<InstanceFrame>("Instance Frame 2",
-                                               viz.getDefaultArea(), inst2));
-  viz.addFrame(std::make_unique<Frame>("Basic Frame", viz.getDefaultArea()));
-  viz.addFrame(
-      std::make_unique<Frame>("Another Basic Frame", viz.getDefaultArea()));
-  viz.run();
+
   GeneticAlgorithm ga(inst2);
   std::vector<int> path = ga.findHostelsPath();
   std::cout << "Computing hostels path:\n";
   for (int hostel : path) {
     std::cout << hostel << " - "
-              << inst.getWorldMap().getHostelByIndex(hostel).getLabel() << "\n";
+              << inst2.getWorldMap().getHostelByIndex(hostel).getLabel()
+              << "\n";
   }
 
   // Hardcoded solution for testing validation

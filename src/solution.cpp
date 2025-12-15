@@ -174,3 +174,8 @@ std::set<int> Solution::getVisitedPOIs() const {
   }
   return visitedPOIs;
 }
+
+bool Solution::isPOIVisited(int poi_id) const {
+  std::set<int> visitedPOIs = getVisitedPOIs();
+  return visitedPOIs.find(poi_id) != visitedPOIs.end();
+}

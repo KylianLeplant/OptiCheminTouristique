@@ -34,4 +34,6 @@ public:
   bool isValid() const;
   std::set<int> getVisitedHotels() const;
   std::set<int> getVisitedPOIs() const;
+  bool isPOIVisited(int poi_id) const;
+  
 };

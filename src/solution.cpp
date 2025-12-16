@@ -115,6 +115,9 @@ bool Solution::isValid(const Instance &inst) const {
                   << " after closing time on day " << day << ".\n";
       }
 
+      // current_time must be set to opening time if we arrive earlier
+      current_time = std::max(current_time, inst.getPOIOpeningTime(first_poi));
+
       // Intermediate POI-to-POI segments
       // We need to loop until the second last POI
       for (size_t poi_idx = 0; poi_idx < pois_sequence[day].size() - 1;
@@ -129,6 +132,9 @@ bool Solution::isValid(const Instance &inst) const {
           std::cout << "Error : Arrival at POI " << next_poi
                     << " after closing time on day " << day << ".\n";
         }
+
+        // current_time must be set to opening time if we arrive earlier
+        current_time = std::max(current_time, inst.getPOIOpeningTime(next_poi));
       }
 
       // Last segment : last POI to ending hostel

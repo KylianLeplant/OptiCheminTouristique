@@ -1,4 +1,4 @@
-
+/*
 #include "solution.hpp"
 
 Solution::Solution(const Instance& instance) : instance(instance), score_value(0) {}
@@ -362,3 +362,4 @@ int Solution::findNearestHostel(Point target_point, const std::set<int>& exclude
 
     return nearest_hostel_id;
 }
+*/

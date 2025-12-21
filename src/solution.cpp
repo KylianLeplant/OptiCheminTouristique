@@ -28,53 +28,21 @@ Solution::Solution(const Instance& instance, const std::vector<int>& genome)
           isAtHotel = false;
         }
         else {
-          if (isAtHotel) {
-            int nextHostelId;
-            if (indexDay == instance.getDayCount() - 1) {
-              float distance = instance.getWorldMap().getDistanceBetweenPoints(
-                currentPlace, instance.getWorldMap().getEndingHostel());
-              if (getDayVisitsDuration(indexDay) + distance <= instance.getDayByIndex(indexDay).getDuration()) {
-                  break;
-              }
-              nextHostelId = -1;
+          int nextHostelId;
+          if (indexDay == instance.getDayCount() - 1) {
+            float distance = instance.getWorldMap().getDistanceBetweenPoints(
+              currentPlace, instance.getWorldMap().getEndingHostel());
+            if (getDayVisitsDuration(indexDay) + distance <= instance.getDayByIndex(indexDay).getDuration()) {
+                break;
             }
-            else{
-              excluded_hostels.insert(intermediate_hostels.begin(), intermediate_hostels.end());
-              nextHostelId = findNearestHostel(currentPlace, excluded_hostels);
-            }
-            if (nextHostelId == -1) {
-              continue;
-            }
-            else{
-              intermediate_hostels.push_back(nextHostelId);
-            pois_sequence.push_back(std::vector<int>());
-
-            // Move to next day
-            indexDay++;
-            currentPlace = instance.getWorldMap().getHostelByIndex(nextHostelId);
-            isAtHotel = 1;
-            excluded_pois.clear();
-            }
-          } 
-          else {
-            int nextHostelId;
-            if (indexDay == instance.getDayCount() - 1) { //if last day
-              if (getDayVisitsDuration(indexDay) + instance.getWorldMap().getDistanceBetweenPoints(
-                currentPlace, instance.getWorldMap().getEndingHostel()) <= instance.getDayByIndex(indexDay).getDuration()) {
-                  break;
-              }
-              nextHostelId = -1;
-            }
-            else{
-              excluded_hostels.insert(intermediate_hostels.begin(), intermediate_hostels.end());
-              if (indexDay == instance.getDayCount() - 1) {
-                excluded_hostels.erase(instance.getWorldMap().getEndingHostelIndex());
-              }
-
-              nextHostelId = findNearestHostel(instance.getWorldMap().getPOIByIndex(genome[indexGene]), excluded_hostels);
-            }
-            if (nextHostelId == -1) {
-              std::cout << indexGene << "\n";
+            nextHostelId = -1;
+          }
+          else{
+            excluded_hostels.insert(intermediate_hostels.begin(), intermediate_hostels.end());
+            nextHostelId = findNearestHostel(currentPlace, excluded_hostels);
+          }
+          if (nextHostelId == -1) {
+            if (!isAtHotel) {
               indexGene--;
               excluded_pois.insert(genome[indexGene]);
               pois_sequence[indexDay].pop_back();
@@ -91,18 +59,20 @@ Solution::Solution(const Instance& instance, const std::vector<int>& genome)
               else {
                 currentPlace = instance.getWorldMap().getPOIByIndex(genome[indexGene-1]);
               }
-              continue;
             }
-            intermediate_hostels.push_back(nextHostelId);
-            pois_sequence.push_back(std::vector<int>());
-
-            // Move to next day
-            indexDay++;
-            currentPlace = instance.getWorldMap().getHostelByIndex(nextHostelId);
-            isAtHotel = 1;
-            excluded_pois.clear();
+            continue;
           }
-        }
+          else{
+            intermediate_hostels.push_back(nextHostelId);
+          pois_sequence.push_back(std::vector<int>());
+
+          // Move to next day
+          indexDay++;
+          currentPlace = instance.getWorldMap().getHostelByIndex(nextHostelId);
+          isAtHotel = 1;
+          if (!isAtHotel) excluded_pois.clear();
+          }
+        } 
       }
     }
 

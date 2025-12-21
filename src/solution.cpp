@@ -17,34 +17,18 @@ Solution::Solution(const Instance& instance, const std::vector<int>& genome)
       if (indexDay != instance.getDayCount() - 1) {
         excluded_hostels.insert(instance.getWorldMap().getEndingHostelIndex());
       }
-      std::cout << "A\n\n";
       while (indexDay < instance.getDayCount() && indexGene < genome.size()) {
-        genome[indexGene];
         Point nextPlace = instance.getWorldMap().getPOIByIndex(genome[indexGene]);
         float distance = instance.getWorldMap().getDistanceBetweenPoints(currentPlace, nextPlace);
-        std::cout << "\n\n\nPOI sequence for day " << indexDay << ": ";
-        for (int i = 0; i < pois_sequence[indexDay].size();i++) std::cout << pois_sequence[indexDay][i] << " ";
-        std::cout << "\ncurrent Day: " << indexDay << "\n";
-        std::cout << "current position: (" << currentPlace.getX() << ", " << currentPlace.getY() << ")\n";
-        std::cout << "next POI position: (" << nextPlace.getX() << ", " << nextPlace.getY() << ")\n";
-        std::cout << "B "<< genome[indexGene] << "\n";
-        std::cout << "B1 " << instance.getDayByIndex(indexDay).getDuration() << std::endl;
-        std::cout << "B2 " << getDayVisitsDuration(indexDay) << std::endl;
-        std::cout << "B3 " << distance << std::endl;
-        std::cout << "B4 " << (excluded_pois.find(genome[indexGene]) == excluded_pois.end()) << std::endl;
-
         if (instance.getDayByIndex(indexDay).getDuration() - getDayVisitsDuration(indexDay) > distance && 
             excluded_pois.find(genome[indexGene]) == excluded_pois.end()) {
-          std::cout << "AJOUT POI " << genome[indexGene] << "\n";
           pois_sequence[indexDay].push_back(genome[indexGene]); 
           indexGene++;
           currentPlace = nextPlace;
           isAtHotel = false;
         }
         else {
-          std::cout << "D\n";
           if (isAtHotel) {
-            std::cout << "E\n";
             int nextHostelId;
             if (indexDay == instance.getDayCount() - 1) {
               float distance = instance.getWorldMap().getDistanceBetweenPoints(
@@ -59,7 +43,6 @@ Solution::Solution(const Instance& instance, const std::vector<int>& genome)
               nextHostelId = findNearestHostel(currentPlace, excluded_hostels);
             }
             if (nextHostelId == -1) {
-              std::cout << "E1\n";
               continue;
             }
             else{
@@ -74,35 +57,23 @@ Solution::Solution(const Instance& instance, const std::vector<int>& genome)
             }
           } 
           else {
-            std::cout << "F\n";
             int nextHostelId;
             if (indexDay == instance.getDayCount() - 1) { //if last day
-              std::cout << "G\n";
               if (getDayVisitsDuration(indexDay) + instance.getWorldMap().getDistanceBetweenPoints(
                 currentPlace, instance.getWorldMap().getEndingHostel()) <= instance.getDayByIndex(indexDay).getDuration()) {
                   break;
               }
-              else{
-                std::cout << "coord current place : (" << currentPlace.getX() << ", " << currentPlace.getY() << ")\n";
-              
-                std::cout << "G1 :\n temps visite : " << getDayVisitsDuration(indexDay) << " + distance to ending hostel : " 
-                          << instance.getWorldMap().getDistanceBetweenPoints(
-                              currentPlace, instance.getWorldMap().getEndingHostel()) << " and max duration : " << instance.getDayByIndex(indexDay).getDuration() << "\n";
-              }
               nextHostelId = -1;
             }
             else{
-              std::cout << "H\n";
               excluded_hostels.insert(intermediate_hostels.begin(), intermediate_hostels.end());
               if (indexDay == instance.getDayCount() - 1) {
-                std::cout << "H1\n";
                 excluded_hostels.erase(instance.getWorldMap().getEndingHostelIndex());
               }
 
               nextHostelId = findNearestHostel(instance.getWorldMap().getPOIByIndex(genome[indexGene]), excluded_hostels);
             }
             if (nextHostelId == -1) {
-              std::cout << "I " << nextHostelId << "\n";
               std::cout << indexGene << "\n";
               indexGene--;
               excluded_pois.insert(genome[indexGene]);
@@ -110,7 +81,6 @@ Solution::Solution(const Instance& instance, const std::vector<int>& genome)
               if (pois_sequence[indexDay].empty()) {
                 isAtHotel = true;
                 if (indexDay > 0) {
-                  std::cout << "J1\n";
                   currentPlace = instance.getWorldMap().getHostelByIndex(
                       intermediate_hostels.back());
                 } 
@@ -123,8 +93,6 @@ Solution::Solution(const Instance& instance, const std::vector<int>& genome)
               }
               continue;
             }
-
-            std::cout << "J " << nextHostelId << "\n";
             intermediate_hostels.push_back(nextHostelId);
             pois_sequence.push_back(std::vector<int>());
 

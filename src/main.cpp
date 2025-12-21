@@ -20,17 +20,12 @@ int main() {
   Instance inst2(data_folder + "Inst-test.txt");
   Instance inst(data_folder + "Inst4.txt");
 
-  GeneticAlgorithm ga(inst2);
-  std::vector<int> path = ga.findHostelsPath();
-  std::cout << "Computing hostels path:\n";
-  for (int hostel : path) {
-    std::cout << hostel << " - "
-              << inst2.getWorldMap().getHostelByIndex(hostel).getLabel()
-              << "\n";
-  }
+  GeneticAlgorithm ga(inst2,5);
+
+  
 
   // Hardcoded solution for testing validation
-  Solution sol(inst2);
+  //Solution sol(inst2);
 
   //sol.intermediate_hostels.push_back(2);
   //sol.start_dates.push_back(0.0f);

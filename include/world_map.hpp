@@ -60,4 +60,6 @@ public:
   // Must handle caching. (TODO)
   const float getDistanceBetweenPoints(const Point &point1,
                                        const Point &point2) const;
+
+  std::vector<int> getPOIsIDs() const;
 };

@@ -3,9 +3,17 @@
 #include "solution.hpp"
 #include "world_map.hpp"
 #include <iostream>
-GeneticAlgorithm::GeneticAlgorithm(const Instance &i) : inst(i) {
-  target_population_size = 1;
-  population.push_back(Solution(inst));
+#include <random>
+#include <algorithm>
+GeneticAlgorithm::GeneticAlgorithm(const Instance &i, int target_population_size) 
+    : instance(i), target_population_size(target_population_size) {
+  std::vector<int> pois = instance.getWorldMap().getPOIsIDs();
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  for (int i = 0; i < target_population_size; ++i) {
+    std::shuffle(pois.begin(), pois.end(),gen);
+    population.push_back(pois);
+  }
 }
 
 std::vector<int> GeneticAlgorithm::findHostelsPath() {
@@ -16,7 +24,7 @@ std::vector<int> GeneticAlgorithm::findHostelsPath() {
 
   // We need to count how many intermediate hostels we need.
   // We need the number of days - 1 intermediate hostels.
-  int intermediate_hostel_count = inst.getDayCount() - 1;
+  int intermediate_hostel_count = instance.getDayCount() - 1;
 
   while (hostels_path.size() < intermediate_hostel_count) {
     std::cout << intermediate_hostel_count << " hostels needed, currently have "
@@ -30,18 +38,18 @@ std::vector<int> GeneticAlgorithm::findHostelsPath() {
     }
 
     // Create a pool of available hostels to choose from.
-    int total_hostels = inst.getWorldMap().getHostelCount();
+    int total_hostels = instance.getWorldMap().getHostelCount();
     std::vector<int> available_hostels;
     for (int i = 0; i < total_hostels; ++i) {
       // Check if it's not the starting or ending hostel
-      if (i == inst.getWorldMap().getStartingHostelIndex() ||
-          i == inst.getWorldMap().getEndingHostelIndex()) {
+      if (i == instance.getWorldMap().getStartingHostelIndex() ||
+          i == instance.getWorldMap().getEndingHostelIndex()) {
         continue;
       }
 
       // Check if it's not already in the path
       // IMPORTANT : This check can be deleted to allow revisiting hostels,
-      // Which is not against the problem's rules.
+      // Which is not againstance the problem's rules.
       if (std::find(hostels_path.begin(), hostels_path.end(), i) !=
           hostels_path.end()) {
         continue;
@@ -60,14 +68,14 @@ std::vector<int> GeneticAlgorithm::findHostelsPath() {
 
     std::vector<int> reachable_hostels;
     int current_hostel_id = hostels_path.empty()
-                                ? inst.getWorldMap().getStartingHostelIndex()
+                                ? instance.getWorldMap().getStartingHostelIndex()
                                 : hostels_path.back();
     for (int hostel_id : available_hostels) {
       // available_hostels and hostels_path are mutually exclusive by design.
-      if (inst.getWorldMap().getDistanceBetweenPoints(
-              inst.getWorldMap().getHostelByIndex(current_hostel_id),
-              inst.getWorldMap().getHostelByIndex(hostel_id)) <=
-          inst.getDayByIndex(static_cast<int>(hostels_path.size()))
+      if (instance.getWorldMap().getDistanceBetweenPoints(
+              instance.getWorldMap().getHostelByIndex(current_hostel_id),
+              instance.getWorldMap().getHostelByIndex(hostel_id)) <=
+          instance.getDayByIndex(static_cast<int>(hostels_path.size()))
               .getDuration()) {
         // Hostel is reachable
         reachable_hostels.push_back(hostel_id);

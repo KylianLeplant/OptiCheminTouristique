@@ -7,8 +7,8 @@
 
 class GeneticAlgorithm {
 private:
-  std::vector<Solution> population;
-  const Instance &inst;
+  std::vector<std::vector<int>> population;
+  const Instance &instance;
   int target_population_size;
 
   std::vector<int> getReachableHostels();
@@ -23,7 +23,7 @@ private:
   void mutation();
 
 public:
-  GeneticAlgorithm(const Instance &inst);
+  GeneticAlgorithm(const Instance &inst, int target_population_size = 50);
 
   std::vector<int> findHostelsPath();
   Solution getBestSolution();

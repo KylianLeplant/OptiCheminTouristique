@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include <stdio.h>
 #include <sys/types.h>
+#include <numeric>
 
 // Returns the number of hostels in the map
 int WorldMap::getHostelCount() const {
@@ -90,3 +91,9 @@ const float WorldMap::getDistanceBetweenPoints(const Point &point1,
 
   return distance;
 }
+
+std::vector<int> WorldMap::getPOIsIDs() const {
+  std::vector<int> poi_ids(pois.size());
+  std::iota(poi_ids.begin(), poi_ids.end(), 0);
+  return poi_ids;
+};

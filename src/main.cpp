@@ -17,7 +17,7 @@ const std::string output_file_list = "sortie.txt";
 
 int main() {
 
-  Instance inst2(data_folder + "Inst1.txt");
+  Instance inst2(data_folder + "Inst-test.txt");
   Instance inst(data_folder + "Inst4.txt");
 
   GeneticAlgorithm ga(inst2);
@@ -32,31 +32,45 @@ int main() {
   // Hardcoded solution for testing validation
   Solution sol(inst2);
 
-  sol.intermediate_hostels.push_back(2);
-  sol.start_dates.push_back(0.0f);
-  sol.start_dates.push_back(0.0f);
-  sol.pois_sequence.push_back(
-      {0, 2, 5, 9, 14, 21, 28, 20, 27, 35, 42, 36, 29, 22, 30, 31});
-  sol.pois_sequence.push_back(
-      {24, 32, 40, 33, 25, 19, 26, 34, 41, 47, 52, 56, 59, 61});
-  sol.score_value = 816;
-
-  bool valid = sol.isValid();
-  if (valid) {
-    std::cout << "Solution is valid.\n";
-  } else {
-    std::cout << "Solution is invalid.\n";
+  //sol.intermediate_hostels.push_back(2);
+  //sol.start_dates.push_back(0.0f);
+  //sol.start_dates.push_back(0.0f);
+  //sol.pois_sequence.push_back(
+  //    {0, 2, 5, 9, 14, 21, 28, 20, 27, 35, 42, 36, 29, 22, 30, 31});
+  //sol.pois_sequence.push_back(
+  //    {24, 32, 40, 33, 25, 19, 26, 34, 41, 47, 52, 56, 59, 61});
+  //sol.score_value = 816;
+//
+  //bool valid = sol.isValid();
+  //if (valid) {
+  //  std::cout << "Solution is valid.\n";
+  //} else {
+  //  std::cout << "Solution is invalid.\n";
+  //}
+  std::vector<int> genome = {0, 13, 2, 61, 60, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+                             14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 26,
+                             27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
+                             40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52,
+                             53, 54, 55, 56, 57, 58, 59, 62};
+  
+  Solution sol_test = Solution(inst2, genome);
+  for (size_t day = 0; day < sol_test.pois_sequence.size(); ++day) {
+      std::cout << "Day " << day << " POIs: ";
+      for (size_t poi_idx = 0; poi_idx < sol_test.pois_sequence[day].size(); ++poi_idx) {
+          std::cout << sol_test.pois_sequence[day][poi_idx] << " ";
+      }
+      std::cout << "\n";
   }
+   Visualizer viz(800, 600);
+  //viz.addFrame(std::make_unique<InstanceFrame>("Instance Frame",
+  //                                             viz.getDefaultArea(), inst));
+   viz.addFrame(std::make_unique<InstanceFrame>("Instance Frame 2",
+                                                viz.getDefaultArea(), inst2));
+   viz.addFrame(std::make_unique<Frame>("Basic Frame", viz.getDefaultArea()));
+   viz.addFrame(
+       std::make_unique<Frame>("Another Basic Frame", viz.getDefaultArea()));
+   viz.run();
 
-  // Visualizer viz(800, 600);
-  ////viz.addFrame(std::make_unique<InstanceFrame>("Instance Frame",
-  ////                                             viz.getDefaultArea(), inst));
-  // viz.addFrame(std::make_unique<InstanceFrame>("Instance Frame 2",
-  //                                              viz.getDefaultArea(), inst2));
-  // viz.addFrame(std::make_unique<Frame>("Basic Frame", viz.getDefaultArea()));
-  // viz.addFrame(
-  //     std::make_unique<Frame>("Another Basic Frame", viz.getDefaultArea()));
-  // viz.run();
 
   return 0;
 }

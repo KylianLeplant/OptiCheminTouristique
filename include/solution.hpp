@@ -3,6 +3,9 @@
 #include "instance.hpp"
 #include <vector>
 #include <set>
+#include "world_map.hpp"
+#include <iostream>
+#include <set>
 
 // Represents one possible solution for a problem instance.
 class Solution {
@@ -30,10 +33,24 @@ public:
 
   Solution() = delete;
   Solution(const Instance& instance);
+  Solution(const Instance& instance, const std::vector<int>& genome);
   virtual ~Solution();
+
+  // verifies if the solution is valid according to problem constraints
   bool isValid() const;
+
+  // returns the set of visited hotels' IDs
   std::set<int> getVisitedHotels() const;
+
+  // returns the set of visited POIs' IDs
   std::set<int> getVisitedPOIs() const;
+
+  // checks if a specific POI has been visited in the solution
   bool isPOIVisited(int poi_id) const;
+
+  // calculates the total visit duration for a specific day
+  float getDayVisitsDuration(int day) const;
+  
+  int findNearestHostel(Point target_point, const std::set<int>& excluded_hostels) const;
   
 };

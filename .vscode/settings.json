@@ -82,5 +82,6 @@
     },
     "code-runner.runInTerminal": true,
     // Force la tâche de build par défaut (Makefile)
-    "task.defaultBuildTask": "Build (Makefile)"
+    "task.defaultBuildTask": "Build (Makefile)",
+    "C_Cpp.errorSquiggles": "disabled"
 }

@@ -1,9 +1,143 @@
+
 #include "solution.hpp"
-#include "instance.hpp"
-#include <iostream>
-#include <set>
 
 Solution::Solution(const Instance& instance) : instance(instance), score_value(0) {}
+Solution::Solution(const Instance& instance, const std::vector<int>& genome)
+    : instance(instance), score_value(0) {
+      pois_sequence.push_back(std::vector<int>());
+      int indexDay = 0;
+      int indexGene = 0;
+      bool isAtHotel = false; // 1 if at hostel, 0 if at POI
+      Point currentPlace = instance.getWorldMap().getStartingHostel();
+      
+      // initialize excluded hostels set
+      std::set<int> excluded_hostels;
+      std::set<int> excluded_pois;
+      excluded_hostels.insert(instance.getWorldMap().getStartingHostelIndex());
+      if (indexDay != instance.getDayCount() - 1) {
+        excluded_hostels.insert(instance.getWorldMap().getEndingHostelIndex());
+      }
+      std::cout << "A\n\n";
+      while (indexDay < instance.getDayCount() && indexGene < genome.size()) {
+        genome[indexGene];
+        Point nextPlace = instance.getWorldMap().getPOIByIndex(genome[indexGene]);
+        float distance = instance.getWorldMap().getDistanceBetweenPoints(currentPlace, nextPlace);
+        std::cout << "\n\n\nPOI sequence for day " << indexDay << ": ";
+        for (int i = 0; i < pois_sequence[indexDay].size();i++) std::cout << pois_sequence[indexDay][i] << " ";
+        std::cout << "\ncurrent Day: " << indexDay << "\n";
+        std::cout << "current position: (" << currentPlace.getX() << ", " << currentPlace.getY() << ")\n";
+        std::cout << "next POI position: (" << nextPlace.getX() << ", " << nextPlace.getY() << ")\n";
+        std::cout << "B "<< genome[indexGene] << "\n";
+        std::cout << "B1 " << instance.getDayByIndex(indexDay).getDuration() << std::endl;
+        std::cout << "B2 " << getDayVisitsDuration(indexDay) << std::endl;
+        std::cout << "B3 " << distance << std::endl;
+        std::cout << "B4 " << (excluded_pois.find(genome[indexGene]) == excluded_pois.end()) << std::endl;
+
+        if (instance.getDayByIndex(indexDay).getDuration() - getDayVisitsDuration(indexDay) > distance && 
+            excluded_pois.find(genome[indexGene]) == excluded_pois.end()) {
+          std::cout << "AJOUT POI " << genome[indexGene] << "\n";
+          pois_sequence[indexDay].push_back(genome[indexGene]); 
+          indexGene++;
+          currentPlace = nextPlace;
+          isAtHotel = false;
+        }
+        else {
+          std::cout << "D\n";
+          if (isAtHotel) {
+            std::cout << "E\n";
+            int nextHostelId;
+            if (indexDay == instance.getDayCount() - 1) {
+              float distance = instance.getWorldMap().getDistanceBetweenPoints(
+                currentPlace, instance.getWorldMap().getEndingHostel());
+              if (getDayVisitsDuration(indexDay) + distance <= instance.getDayByIndex(indexDay).getDuration()) {
+                  break;
+              }
+              nextHostelId = -1;
+            }
+            else{
+              excluded_hostels.insert(intermediate_hostels.begin(), intermediate_hostels.end());
+              nextHostelId = findNearestHostel(currentPlace, excluded_hostels);
+            }
+            if (nextHostelId == -1) {
+              std::cout << "E1\n";
+              continue;
+            }
+            else{
+              intermediate_hostels.push_back(nextHostelId);
+            pois_sequence.push_back(std::vector<int>());
+
+            // Move to next day
+            indexDay++;
+            currentPlace = instance.getWorldMap().getHostelByIndex(nextHostelId);
+            isAtHotel = 1;
+            excluded_pois.clear();
+            }
+          } 
+          else {
+            std::cout << "F\n";
+            int nextHostelId;
+            if (indexDay == instance.getDayCount() - 1) { //if last day
+              std::cout << "G\n";
+              if (getDayVisitsDuration(indexDay) + instance.getWorldMap().getDistanceBetweenPoints(
+                currentPlace, instance.getWorldMap().getEndingHostel()) <= instance.getDayByIndex(indexDay).getDuration()) {
+                  break;
+              }
+              else{
+                std::cout << "coord current place : (" << currentPlace.getX() << ", " << currentPlace.getY() << ")\n";
+              
+                std::cout << "G1 :\n temps visite : " << getDayVisitsDuration(indexDay) << " + distance to ending hostel : " 
+                          << instance.getWorldMap().getDistanceBetweenPoints(
+                              currentPlace, instance.getWorldMap().getEndingHostel()) << " and max duration : " << instance.getDayByIndex(indexDay).getDuration() << "\n";
+              }
+              nextHostelId = -1;
+            }
+            else{
+              std::cout << "H\n";
+              excluded_hostels.insert(intermediate_hostels.begin(), intermediate_hostels.end());
+              if (indexDay == instance.getDayCount() - 1) {
+                std::cout << "H1\n";
+                excluded_hostels.erase(instance.getWorldMap().getEndingHostelIndex());
+              }
+
+              nextHostelId = findNearestHostel(instance.getWorldMap().getPOIByIndex(genome[indexGene]), excluded_hostels);
+            }
+            if (nextHostelId == -1) {
+              std::cout << "I " << nextHostelId << "\n";
+              std::cout << indexGene << "\n";
+              indexGene--;
+              excluded_pois.insert(genome[indexGene]);
+              pois_sequence[indexDay].pop_back();
+              if (pois_sequence[indexDay].empty()) {
+                isAtHotel = true;
+                if (indexDay > 0) {
+                  std::cout << "J1\n";
+                  currentPlace = instance.getWorldMap().getHostelByIndex(
+                      intermediate_hostels.back());
+                } 
+                else {
+                  currentPlace = instance.getWorldMap().getStartingHostel();
+                }
+              } 
+              else {
+                currentPlace = instance.getWorldMap().getPOIByIndex(genome[indexGene-1]);
+              }
+              continue;
+            }
+
+            std::cout << "J " << nextHostelId << "\n";
+            intermediate_hostels.push_back(nextHostelId);
+            pois_sequence.push_back(std::vector<int>());
+
+            // Move to next day
+            indexDay++;
+            currentPlace = instance.getWorldMap().getHostelByIndex(nextHostelId);
+            isAtHotel = 1;
+            excluded_pois.clear();
+          }
+        }
+      }
+    }
+
 Solution::~Solution() = default;
 
 bool Solution::isValid() const {
@@ -178,4 +312,53 @@ std::set<int> Solution::getVisitedPOIs() const {
 bool Solution::isPOIVisited(int poi_id) const {
   std::set<int> visitedPOIs = getVisitedPOIs();
   return visitedPOIs.find(poi_id) != visitedPOIs.end();
+}
+
+float Solution::getDayVisitsDuration(int day) const {
+  float total_duration = 0;
+  if (day < 0 || day >= static_cast<int>(pois_sequence.size())) {
+      std::cerr << "Error: Invalid day index " << day << ".\n";
+      return total_duration;
+  }
+
+  const std::vector<int> day_sequence = pois_sequence[day];
+  if (day_sequence.size() > 0) {
+      total_duration += instance.getWorldMap().getDistanceBetweenPoints(
+          instance.getWorldMap().getHostelByIndex(
+              (day == 0) ? instance.getWorldMap().getStartingHostelIndex()
+                         : intermediate_hostels[day - 1]),
+          instance.getWorldMap().getPOIByIndex(day_sequence[0]));
+  }
+  //std::cout << total_duration << "\n";
+  for (int i = 0; i < static_cast<int>(day_sequence.size()) - 1; ++i) {
+      const POI& current_poi = instance.getWorldMap().getPOIByIndex(day_sequence[i]);
+      const POI& next_poi = instance.getWorldMap().getPOIByIndex(day_sequence[i + 1]);
+      total_duration += instance.getWorldMap().getDistanceBetweenPoints(current_poi, next_poi);
+      //std::cout << "Distance from POI " << current_poi.getGlobalID() 
+      //          << " to POI " << next_poi.getGlobalID() 
+      //          << " is " << instance.getWorldMap().getDistanceBetweenPoints(current_poi, next_poi) << "\n";
+  }
+  //std::cout << "Day " << day << " total visit duration: " << total_duration << "\n";
+  return total_duration;
+}
+
+int Solution::findNearestHostel(Point target_point, const std::set<int>& excluded_hostels) const {
+    int nearest_hostel_id = -1;
+    float min_distance = std::numeric_limits<float>::max();
+
+    for (int hostel_id = 0; hostel_id < instance.getWorldMap().getHostelCount(); ++hostel_id) {
+        if (excluded_hostels.find(hostel_id) != excluded_hostels.end()) {
+            continue; // Skip excluded hostels
+        }
+
+        const Hostel& hostel = instance.getWorldMap().getHostelByIndex(hostel_id);
+        float distance = instance.getWorldMap().getDistanceBetweenPoints(hostel, target_point);
+
+        if (distance < min_distance) {
+            min_distance = distance;
+            nearest_hostel_id = hostel_id;
+        }
+    }
+
+    return nearest_hostel_id;
 }

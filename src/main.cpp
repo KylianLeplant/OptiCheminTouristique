@@ -14,7 +14,7 @@ const std::string data_file_list = "data.txt";
 const std::string output_file_list = "sortie.txt";
 
 int main() {
-  Instance inst(data_folder + "Inst1.txt");
+  Instance inst(data_folder + "Inst2.txt");
 
   Solver solv(inst, 42);
 

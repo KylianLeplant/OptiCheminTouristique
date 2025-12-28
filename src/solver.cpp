@@ -45,7 +45,7 @@ Solution Solver::decode(const std::vector<int> &grand_tour) const {
   sol.start_dates.resize(inst.getDayCount(), 0.0f);
 
   // --- CHANGED: Use a mask to track visited POIs instead of a linear index ---
-  std::vector<bool> visited(grand_tour.size(), false);
+  std::vector<char> visited(grand_tour.size(), 0);
 
   int current_start_hostel = inst.getStartingHostelID();
 
@@ -121,7 +121,7 @@ Solution Solver::decode(const std::vector<int> &grand_tour) const {
         current_poi_id = candidate_poi;
         current_hostel_id = -1;
 
-        visited[i] = true; // Mark as used so we don't visit it again later
+        visited[i] = 1; // Mark as used so we don't visit it again later
       }
       // E. ELSE: Do nothing! (This is the "continue" logic)
       // We just loop to i+1 and try to fit the NEXT candidate into the

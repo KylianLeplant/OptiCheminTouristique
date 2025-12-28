@@ -2,7 +2,7 @@
 
 The problem is a variant of the **Multi-Trip Orienteering Problem with Time Windows (MTOPTW)**.
 
-This problem is a famously hard (NP-Hard) combinatorial optimization problem. To solve it within a couple of minutes, we cannot rely on brute force but we must use a Genetic Algorithm.
+This problem is a famously hard (NP-Hard) combinatorial optimization problem. To solve it within a couple of minutes, we cannot rely on brute force and we must use a Genetic Algorithm.
 
 However, this problem is constraint-rich : a "naive" GA would quickly fail because the numerous rules (time windows, days, hostel links) make 99% of random solutions invalid.
 
@@ -85,14 +85,14 @@ TODO : What if the inversion makes the path impossible because of opening hours 
 ## 4. Fitness and Constraints
 
 Our fitness function is simply the total score collected. We do not substract points for invalid solutions, because the decoder never builds any.
-If a POI would cause a time violation, it is simply skipped (not added to the schedule).
+If a POI causes a time violation, it is simply skipped (not added to the schedule).
 The solution remains valid, but gets a lower score because it visited fewer POIs. This "natural penalty" is much more robust.
 
 ## 5. Summary of the architecture
 
 1. **Solver** : Manages the population and evolution
 2. **Genotype** : `vector<int> giant_tour` (the priority list).
-3. **Phenotype** : `Solution` object The actual valid schedule).
+3. **Phenotype** : `Solution` object (The actual valid schedule).
 4. **Eval** : `Genotype` -> Decoder -> `Phenotype` -> Score -> `Fitness`
 5. **Decoder Logic** :
 

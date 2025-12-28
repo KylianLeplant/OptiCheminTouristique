@@ -183,7 +183,8 @@ const float Instance::getDistanceHostelPOI(int hostel_id, int poi_id) const {
 
   // Check if distance is already cached
   if (distance_cache[cache_index] >= 0.0f) {
-    std::cout << distance_cache[cache_index] << "\n";
+    // std::cout << distance_cache[cache_index] << "\n";
+    return distance_cache[cache_index];
   }
 
   const Hostel &hostel = getHostelById(hostel_id);

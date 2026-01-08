@@ -41,6 +41,34 @@ public:
   void mutate(Individual &indiv);
 
   /**
+   * Local Search : Intensification by swapping two POIs in the grand tour several times
+   */
+  void intensifyBySwap(Individual &indiv, int iterations) {
+    Individual copy = indiv;
+    int size = (int)copy.grand_tour.size();
+    if (size < 2)
+      return;
+
+    std::uniform_int_distribution<int> dist(0, size - 1);
+
+    for (int it = 0; it < iterations; ++it) {
+      int i = dist(rng);
+      int j = dist(rng);
+      while (i == j) {
+        j = dist(rng);
+      }
+      std::swap(copy.grand_tour[i], copy.grand_tour[j]);
+      Solution s = decode(copy.grand_tour);
+      if (s.score_value > decode(indiv.grand_tour).score_value) {
+        indiv = copy;
+        indiv.fitness = s.score_value;
+      } else {
+        copy = indiv;
+      }
+    }
+  }
+
+  /**
    * Main solving function.
    * Spends up to time_limit seconds to find a good solution.
    * @param time_limit in seconds
@@ -52,5 +80,5 @@ public:
    * @param mutation_rate probability for a mutation
    */
   Solution solve(int time_limit, int population_size, float elitism_rate,
-                 int tournament_size, float mutation_rate);
+                 int tournament_size, float mutation_rate, float intensify_rate, int intensify_iterations);
 };

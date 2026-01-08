@@ -14,15 +14,17 @@ const std::string data_file_list = "data.txt";
 const std::string output_file_list = "sortie.txt";
 
 int main() {
-  Instance inst(data_folder + "Inst2.txt");
+  Instance inst(data_folder + "Inst8.txt");
 
   Solver solv(inst, 42);
 
-  Solution best_sol = solv.solve(120,   // Time Limit (seconds)
+  Solution best_sol = solv.solve(60,   // Time Limit (seconds)
                                  4000,  // Population Size (Huge!)
                                  0.02f, // Elitism Rate (Keep top 2%)
                                  4,     // Tournament Size (Gentle pressure)
-                                 0.45f  // Mutation Rate (Very High)
+                                 0.455f,  // Mutation Rate (Very High)
+                                 0.001f,   // Intensify Rate
+                                 100      // Intensify Iterations
   );
   // Solution sol;
 

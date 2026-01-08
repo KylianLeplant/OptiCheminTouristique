@@ -217,7 +217,7 @@ void Solver::mutate(Individual &ind) {
 }
 
 Solution Solver::solve(int time_limit, int population_size, float elitism_rate,
-                       int tournament_size, float mutation_rate) {
+                       int tournament_size, float mutation_rate, float intensify_rate, int intensify_iterations) {
   auto start_time = std::chrono::high_resolution_clock::now();
 
   std::vector<Individual> population(population_size);
@@ -253,6 +253,8 @@ Solution Solver::solve(int time_limit, int population_size, float elitism_rate,
     for (int i = 0; i < elites; ++i) {
       next_gen.push_back(population[i]);
     }
+    
+    
 
     while (next_gen.size() < population_size) {
       int best_idx = -1;
@@ -281,8 +283,13 @@ Solution Solver::solve(int time_limit, int population_size, float elitism_rate,
     }
     population = next_gen;
     generation++;
+    
+    for (int i = 0; i < (int)(population_size * intensify_rate); ++i) {
+      float index = std::uniform_real_distribution<float>(0, population_size-1)(rng);
+      intensifyBySwap(population[index], intensify_iterations);
+    }
 
-    if (generation % 1000 == 0) {
+    if (generation % 100 == 0) {
       int best = population[0].fitness;
       float average = std::accumulate(population.begin(), population.end(), 0,
                                       [](int sum, const Individual &ind) {

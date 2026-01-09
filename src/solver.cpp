@@ -216,8 +216,34 @@ void Solver::mutate(Individual &ind) {
   }
 }
 
+void Solver::intensifyBySwap(Individual &indiv, int iterations) {
+    Individual copy = indiv;
+    int size = (int)copy.grand_tour.size();
+    if (size < 2)
+      return;
+
+    std::uniform_int_distribution<int> dist(0, size - 1);
+
+    int fail_in_a_row = 0;
+    for (int it = 0; it < iterations; ++it) {
+      int i = dist(rng);
+      int j = dist(rng);
+      while (i == j) {
+        j = dist(rng);
+      }
+      std::swap(copy.grand_tour[i], copy.grand_tour[j]);
+      Solution s = decode(copy.grand_tour);
+      if (s.score_value > decode(indiv.grand_tour).score_value) {
+        indiv = copy;
+        indiv.fitness = s.score_value;
+      } else {
+        copy = indiv;
+      }
+    }
+  }
+
 Solution Solver::solve(int time_limit, int population_size, float elitism_rate,
-                       int tournament_size, float mutation_rate, float intensify_rate, int intensify_iterations) {
+                       int tournament_size, float mutation_rate, float intensify_rate, int intensify_iterations, float intensify_generation_probability) {
   auto start_time = std::chrono::high_resolution_clock::now();
 
   std::vector<Individual> population(population_size);
@@ -235,6 +261,8 @@ Solution Solver::solve(int time_limit, int population_size, float elitism_rate,
 
   int generation = 0;
 
+
+
   while (true) {
     auto now = std::chrono::high_resolution_clock::now();
     if (std::chrono::duration_cast<std::chrono::seconds>(now - start_time)
@@ -246,7 +274,7 @@ Solution Solver::solve(int time_limit, int population_size, float elitism_rate,
               [](const Individual &a, const Individual &b) {
                 return a.fitness > b.fitness;
               });
-
+              
     std::vector<Individual> next_gen;
 
     int elites = (int)(population_size * elitism_rate);
@@ -283,10 +311,11 @@ Solution Solver::solve(int time_limit, int population_size, float elitism_rate,
     }
     population = next_gen;
     generation++;
-    
-    for (int i = 0; i < (int)(population_size * intensify_rate); ++i) {
-      float index = std::uniform_real_distribution<float>(0, population_size-1)(rng);
-      intensifyBySwap(population[index], intensify_iterations);
+    if (std::uniform_real_distribution<float>(0, 1)(rng) < intensify_generation_probability){
+      for (int i = 0; i < (int)(population_size * intensify_rate); ++i) {
+        float index = std::uniform_real_distribution<float>(0, population_size-1)(rng);
+        intensifyBySwap(population[index], intensify_iterations);
+      }
     }
 
     if (generation % 100 == 0) {

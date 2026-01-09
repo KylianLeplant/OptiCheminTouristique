@@ -1,66 +1,226 @@
 [
-{
-  "directory": "/Users/pacomerenimel/Code/OptiCheminNew",
-  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++", "-c", "-Qunused-arguments", "-arch", "arm64", "-target", "arm64-apple-macos26.1", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-Iinclude", "-DGL_SILENCE_DEPRECATION", "-framework", "CoreVideo", "-framework", "CoreGraphics", "-framework", "AppKit", "-framework", "IOKit", "-framework", "CoreFoundation", "-framework", "Foundation", "-framework", "OpenGL", "-I", "/Users/pacomerenimel/.xmake/packages/r/raylib/5.5/d7b400902f2b425cafe86ca2bb148341/include", "-DNDEBUG", "-o", "build/.objs/OptiChemin/macosx/arm64/release/src/hostel.cpp.o", "src/hostel.cpp"],
-  "file": "src/hostel.cpp"
-},
-{
-  "directory": "/Users/pacomerenimel/Code/OptiCheminNew",
-  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++", "-c", "-Qunused-arguments", "-arch", "arm64", "-target", "arm64-apple-macos26.1", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-Iinclude", "-DGL_SILENCE_DEPRECATION", "-framework", "CoreVideo", "-framework", "CoreGraphics", "-framework", "AppKit", "-framework", "IOKit", "-framework", "CoreFoundation", "-framework", "Foundation", "-framework", "OpenGL", "-I", "/Users/pacomerenimel/.xmake/packages/r/raylib/5.5/d7b400902f2b425cafe86ca2bb148341/include", "-DNDEBUG", "-o", "build/.objs/OptiChemin/macosx/arm64/release/src/utils.cpp.o", "src/utils.cpp"],
-  "file": "src/utils.cpp"
-},
-{
-  "directory": "/Users/pacomerenimel/Code/OptiCheminNew",
-  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++", "-c", "-Qunused-arguments", "-arch", "arm64", "-target", "arm64-apple-macos26.1", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-Iinclude", "-DGL_SILENCE_DEPRECATION", "-framework", "CoreVideo", "-framework", "CoreGraphics", "-framework", "AppKit", "-framework", "IOKit", "-framework", "CoreFoundation", "-framework", "Foundation", "-framework", "OpenGL", "-I", "/Users/pacomerenimel/.xmake/packages/r/raylib/5.5/d7b400902f2b425cafe86ca2bb148341/include", "-DNDEBUG", "-o", "build/.objs/OptiChemin/macosx/arm64/release/src/solution.cpp.o", "src/solution.cpp"],
-  "file": "src/solution.cpp"
-},
-{
-  "directory": "/Users/pacomerenimel/Code/OptiCheminNew",
-  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++", "-c", "-Qunused-arguments", "-arch", "arm64", "-target", "arm64-apple-macos26.1", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-Iinclude", "-DGL_SILENCE_DEPRECATION", "-framework", "CoreVideo", "-framework", "CoreGraphics", "-framework", "AppKit", "-framework", "IOKit", "-framework", "CoreFoundation", "-framework", "Foundation", "-framework", "OpenGL", "-I", "/Users/pacomerenimel/.xmake/packages/r/raylib/5.5/d7b400902f2b425cafe86ca2bb148341/include", "-DNDEBUG", "-o", "build/.objs/OptiChemin/macosx/arm64/release/src/world_map.cpp.o", "src/world_map.cpp"],
-  "file": "src/world_map.cpp"
-},
-{
-  "directory": "/Users/pacomerenimel/Code/OptiCheminNew",
-  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++", "-c", "-Qunused-arguments", "-arch", "arm64", "-target", "arm64-apple-macos26.1", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-Iinclude", "-DGL_SILENCE_DEPRECATION", "-framework", "CoreVideo", "-framework", "CoreGraphics", "-framework", "AppKit", "-framework", "IOKit", "-framework", "CoreFoundation", "-framework", "Foundation", "-framework", "OpenGL", "-I", "/Users/pacomerenimel/.xmake/packages/r/raylib/5.5/d7b400902f2b425cafe86ca2bb148341/include", "-DNDEBUG", "-o", "build/.objs/OptiChemin/macosx/arm64/release/src/poi.cpp.o", "src/poi.cpp"],
-  "file": "src/poi.cpp"
-},
-{
-  "directory": "/Users/pacomerenimel/Code/OptiCheminNew",
-  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++", "-c", "-Qunused-arguments", "-arch", "arm64", "-target", "arm64-apple-macos26.1", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-Iinclude", "-DGL_SILENCE_DEPRECATION", "-framework", "CoreVideo", "-framework", "CoreGraphics", "-framework", "AppKit", "-framework", "IOKit", "-framework", "CoreFoundation", "-framework", "Foundation", "-framework", "OpenGL", "-I", "/Users/pacomerenimel/.xmake/packages/r/raylib/5.5/d7b400902f2b425cafe86ca2bb148341/include", "-DNDEBUG", "-o", "build/.objs/OptiChemin/macosx/arm64/release/src/map.cpp.o", "src/map.cpp"],
-  "file": "src/map.cpp"
-},
-{
-  "directory": "/Users/pacomerenimel/Code/OptiCheminNew",
-  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++", "-c", "-Qunused-arguments", "-arch", "arm64", "-target", "arm64-apple-macos26.1", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-Iinclude", "-DGL_SILENCE_DEPRECATION", "-framework", "CoreVideo", "-framework", "CoreGraphics", "-framework", "AppKit", "-framework", "IOKit", "-framework", "CoreFoundation", "-framework", "Foundation", "-framework", "OpenGL", "-I", "/Users/pacomerenimel/.xmake/packages/r/raylib/5.5/d7b400902f2b425cafe86ca2bb148341/include", "-DNDEBUG", "-o", "build/.objs/OptiChemin/macosx/arm64/release/src/point.cpp.o", "src/point.cpp"],
-  "file": "src/point.cpp"
-},
-{
-  "directory": "/Users/pacomerenimel/Code/OptiCheminNew",
-  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++", "-c", "-Qunused-arguments", "-arch", "arm64", "-target", "arm64-apple-macos26.1", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-Iinclude", "-DGL_SILENCE_DEPRECATION", "-framework", "CoreVideo", "-framework", "CoreGraphics", "-framework", "AppKit", "-framework", "IOKit", "-framework", "CoreFoundation", "-framework", "Foundation", "-framework", "OpenGL", "-I", "/Users/pacomerenimel/.xmake/packages/r/raylib/5.5/d7b400902f2b425cafe86ca2bb148341/include", "-DNDEBUG", "-o", "build/.objs/OptiChemin/macosx/arm64/release/src/day.cpp.o", "src/day.cpp"],
-  "file": "src/day.cpp"
-},
-{
-  "directory": "/Users/pacomerenimel/Code/OptiCheminNew",
-  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++", "-c", "-Qunused-arguments", "-arch", "arm64", "-target", "arm64-apple-macos26.1", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-Iinclude", "-DGL_SILENCE_DEPRECATION", "-framework", "CoreVideo", "-framework", "CoreGraphics", "-framework", "AppKit", "-framework", "IOKit", "-framework", "CoreFoundation", "-framework", "Foundation", "-framework", "OpenGL", "-I", "/Users/pacomerenimel/.xmake/packages/r/raylib/5.5/d7b400902f2b425cafe86ca2bb148341/include", "-DNDEBUG", "-o", "build/.objs/OptiChemin/macosx/arm64/release/src/instance.cpp.o", "src/instance.cpp"],
-  "file": "src/instance.cpp"
-},
-{
-  "directory": "/Users/pacomerenimel/Code/OptiCheminNew",
-  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++", "-c", "-Qunused-arguments", "-arch", "arm64", "-target", "arm64-apple-macos26.1", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-Iinclude", "-DGL_SILENCE_DEPRECATION", "-framework", "CoreVideo", "-framework", "CoreGraphics", "-framework", "AppKit", "-framework", "IOKit", "-framework", "CoreFoundation", "-framework", "Foundation", "-framework", "OpenGL", "-I", "/Users/pacomerenimel/.xmake/packages/r/raylib/5.5/d7b400902f2b425cafe86ca2bb148341/include", "-DNDEBUG", "-o", "build/.objs/OptiChemin/macosx/arm64/release/src/main.cpp.o", "src/main.cpp"],
-  "file": "src/main.cpp"
-},
-{
-  "directory": "/Users/pacomerenimel/Code/OptiCheminNew",
-  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++", "-c", "-Qunused-arguments", "-arch", "arm64", "-target", "arm64-apple-macos26.1", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-Iinclude", "-DGL_SILENCE_DEPRECATION", "-framework", "CoreVideo", "-framework", "CoreGraphics", "-framework", "AppKit", "-framework", "IOKit", "-framework", "CoreFoundation", "-framework", "Foundation", "-framework", "OpenGL", "-I", "/Users/pacomerenimel/.xmake/packages/r/raylib/5.5/d7b400902f2b425cafe86ca2bb148341/include", "-DNDEBUG", "-o", "build/.objs/OptiChemin/macosx/arm64/release/src/viz/visualizer.cpp.o", "src/viz/visualizer.cpp"],
-  "file": "src/viz/visualizer.cpp"
-},
-{
-  "directory": "/Users/pacomerenimel/Code/OptiCheminNew",
-  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++", "-c", "-Qunused-arguments", "-arch", "arm64", "-target", "arm64-apple-macos26.1", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-Iinclude", "-DGL_SILENCE_DEPRECATION", "-framework", "CoreVideo", "-framework", "CoreGraphics", "-framework", "AppKit", "-framework", "IOKit", "-framework", "CoreFoundation", "-framework", "Foundation", "-framework", "OpenGL", "-I", "/Users/pacomerenimel/.xmake/packages/r/raylib/5.5/d7b400902f2b425cafe86ca2bb148341/include", "-DNDEBUG", "-o", "build/.objs/OptiChemin/macosx/arm64/release/src/viz/frame.cpp.o", "src/viz/frame.cpp"],
-  "file": "src/viz/frame.cpp"
-},
-{
-  "directory": "/Users/pacomerenimel/Code/OptiCheminNew",
-  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++", "-c", "-Qunused-arguments", "-arch", "arm64", "-target", "arm64-apple-macos26.1", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++17", "-Iinclude", "-DGL_SILENCE_DEPRECATION", "-framework", "CoreVideo", "-framework", "CoreGraphics", "-framework", "AppKit", "-framework", "IOKit", "-framework", "CoreFoundation", "-framework", "Foundation", "-framework", "OpenGL", "-I", "/Users/pacomerenimel/.xmake/packages/r/raylib/5.5/d7b400902f2b425cafe86ca2bb148341/include", "-DNDEBUG", "-o", "build/.objs/OptiChemin/macosx/arm64/release/src/viz/instance_frame.cpp.o", "src/viz/instance_frame.cpp"],
-  "file": "src/viz/instance_frame.cpp"
-}]
+  {
+    "directory": "/Users/pacomerenimel/Code/OptiCheminTouristique",
+    "arguments": [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+      "-c",
+      "-Qunused-arguments",
+      "-arch",
+      "arm64",
+      "-target",
+      "arm64-apple-macos26.2",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-fvisibility=hidden",
+      "-fvisibility-inlines-hidden",
+      "-O3",
+      "-std=c++17",
+      "-Iinclude",
+      "-flto=thin",
+      "-march=native",
+      "-ffast-math",
+      "-funroll-loops",
+      "-DNDEBUG",
+      "-o",
+      "build/.objs/OptiChemin/macosx/arm64/release/src/hostel.cpp.o",
+      "src/hostel.cpp"
+    ],
+    "file": "src/hostel.cpp"
+  },
+  {
+    "directory": "/Users/pacomerenimel/Code/OptiCheminTouristique",
+    "arguments": [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+      "-c",
+      "-Qunused-arguments",
+      "-arch",
+      "arm64",
+      "-target",
+      "arm64-apple-macos26.2",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-fvisibility=hidden",
+      "-fvisibility-inlines-hidden",
+      "-O3",
+      "-std=c++17",
+      "-Iinclude",
+      "-flto=thin",
+      "-march=native",
+      "-ffast-math",
+      "-funroll-loops",
+      "-DNDEBUG",
+      "-o",
+      "build/.objs/OptiChemin/macosx/arm64/release/src/solution.cpp.o",
+      "src/solution.cpp"
+    ],
+    "file": "src/solution.cpp"
+  },
+  {
+    "directory": "/Users/pacomerenimel/Code/OptiCheminTouristique",
+    "arguments": [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+      "-c",
+      "-Qunused-arguments",
+      "-arch",
+      "arm64",
+      "-target",
+      "arm64-apple-macos26.2",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-fvisibility=hidden",
+      "-fvisibility-inlines-hidden",
+      "-O3",
+      "-std=c++17",
+      "-Iinclude",
+      "-flto=thin",
+      "-march=native",
+      "-ffast-math",
+      "-funroll-loops",
+      "-DNDEBUG",
+      "-o",
+      "build/.objs/OptiChemin/macosx/arm64/release/src/poi.cpp.o",
+      "src/poi.cpp"
+    ],
+    "file": "src/poi.cpp"
+  },
+  {
+    "directory": "/Users/pacomerenimel/Code/OptiCheminTouristique",
+    "arguments": [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+      "-c",
+      "-Qunused-arguments",
+      "-arch",
+      "arm64",
+      "-target",
+      "arm64-apple-macos26.2",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-fvisibility=hidden",
+      "-fvisibility-inlines-hidden",
+      "-O3",
+      "-std=c++17",
+      "-Iinclude",
+      "-flto=thin",
+      "-march=native",
+      "-ffast-math",
+      "-funroll-loops",
+      "-DNDEBUG",
+      "-o",
+      "build/.objs/OptiChemin/macosx/arm64/release/src/point.cpp.o",
+      "src/point.cpp"
+    ],
+    "file": "src/point.cpp"
+  },
+  {
+    "directory": "/Users/pacomerenimel/Code/OptiCheminTouristique",
+    "arguments": [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+      "-c",
+      "-Qunused-arguments",
+      "-arch",
+      "arm64",
+      "-target",
+      "arm64-apple-macos26.2",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-fvisibility=hidden",
+      "-fvisibility-inlines-hidden",
+      "-O3",
+      "-std=c++17",
+      "-Iinclude",
+      "-flto=thin",
+      "-march=native",
+      "-ffast-math",
+      "-funroll-loops",
+      "-DNDEBUG",
+      "-o",
+      "build/.objs/OptiChemin/macosx/arm64/release/src/individual.cpp.o",
+      "src/individual.cpp"
+    ],
+    "file": "src/individual.cpp"
+  },
+  {
+    "directory": "/Users/pacomerenimel/Code/OptiCheminTouristique",
+    "arguments": [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+      "-c",
+      "-Qunused-arguments",
+      "-arch",
+      "arm64",
+      "-target",
+      "arm64-apple-macos26.2",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-fvisibility=hidden",
+      "-fvisibility-inlines-hidden",
+      "-O3",
+      "-std=c++17",
+      "-Iinclude",
+      "-flto=thin",
+      "-march=native",
+      "-ffast-math",
+      "-funroll-loops",
+      "-DNDEBUG",
+      "-o",
+      "build/.objs/OptiChemin/macosx/arm64/release/src/instance.cpp.o",
+      "src/instance.cpp"
+    ],
+    "file": "src/instance.cpp"
+  },
+  {
+    "directory": "/Users/pacomerenimel/Code/OptiCheminTouristique",
+    "arguments": [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+      "-c",
+      "-Qunused-arguments",
+      "-arch",
+      "arm64",
+      "-target",
+      "arm64-apple-macos26.2",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-fvisibility=hidden",
+      "-fvisibility-inlines-hidden",
+      "-O3",
+      "-std=c++17",
+      "-Iinclude",
+      "-flto=thin",
+      "-march=native",
+      "-ffast-math",
+      "-funroll-loops",
+      "-DNDEBUG",
+      "-o",
+      "build/.objs/OptiChemin/macosx/arm64/release/src/solver.cpp.o",
+      "src/solver.cpp"
+    ],
+    "file": "src/solver.cpp"
+  },
+  {
+    "directory": "/Users/pacomerenimel/Code/OptiCheminTouristique",
+    "arguments": [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+      "-c",
+      "-Qunused-arguments",
+      "-arch",
+      "arm64",
+      "-target",
+      "arm64-apple-macos26.2",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-fvisibility=hidden",
+      "-fvisibility-inlines-hidden",
+      "-O3",
+      "-std=c++17",
+      "-Iinclude",
+      "-flto=thin",
+      "-march=native",
+      "-ffast-math",
+      "-funroll-loops",
+      "-DNDEBUG",
+      "-o",
+      "build/.objs/OptiChemin/macosx/arm64/release/src/main.cpp.o",
+      "src/main.cpp"
+    ],
+    "file": "src/main.cpp"
+  }
+]

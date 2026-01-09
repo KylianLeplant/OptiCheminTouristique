@@ -1,8 +1,3 @@
-// Could a simpler architecture benefit this project ?
-// Maybe keep the Instance class as the big data holder, and keep using IDs for
-// everything as intended in the initial design. This avoids having to pass
-// heavy objects around.
-
 #include "instance.hpp"
 #include "solution.hpp"
 #include "solver.hpp"
@@ -12,9 +7,10 @@
 const std::string data_folder = "Data/";
 const std::string data_file_list = "data.txt";
 const std::string output_file_list = "sortie.txt";
+const std::string instance_name = "Inst1.txt";
 
 int main() {
-  Instance inst(data_folder + "Inst27.txt");
+  Instance inst(data_folder + instance_name);
 
   Solver solv(inst, 65);
 
@@ -39,25 +35,25 @@ int main() {
   //     {24, 32, 40, 33, 25, 19, 26, 34, 41, 47, 52, 56, 59, 61});
   // sol.score_value = 816;
 
-  // bool valid = best_sol.isValid(inst);
-  // if (valid) {
-  //   std::cout << "Solution is valid.\n";
-  //   std::cout << "Total Score: " << best_sol.score_value << "\n";
-  //   // Display solution details
-  //   for (size_t day = 0; day < best_sol.pois_sequence.size(); ++day) {
-  //     std::cout << "Day " << day + 1 << ":\n";
-  //     std::cout << "  Start Date: " << best_sol.start_dates[day] << "\n";
-  //     std::cout << "  Intermediate Hostel: "
-  //               << best_sol.intermediate_hostels[day] << "\n";
-  //     std::cout << "  POIs Visited: ";
-  //     for (const auto &poi_id : best_sol.pois_sequence[day]) {
-  //       std::cout << poi_id << " ";
-  //     }
-  //     std::cout << "\n";
-  //   }
-  // } else {
-  //   std::cout << "Solution is invalid.\n";
-  // }
+  bool valid = best_sol.isValid(inst);
+  if (valid) {
+    std::cout << "Solution is valid.\n";
+    std::cout << "Total Score: " << best_sol.score_value << "\n";
+    // Display solution details
+    for (size_t day = 0; day < best_sol.pois_sequence.size(); ++day) {
+      std::cout << "Day " << day + 1 << ":\n";
+      std::cout << "  Start Date: " << best_sol.start_dates[day] << "\n";
+      std::cout << "  Intermediate Hostel: "
+                << best_sol.intermediate_hostels[day] << "\n";
+      std::cout << "  POIs Visited: ";
+      for (const auto &poi_id : best_sol.pois_sequence[day]) {
+        std::cout << poi_id << " ";
+      }
+      std::cout << "\n";
+    }
+  } else {
+    std::cout << "Solution is invalid.\n";
+  }
 
   return 0;
 }

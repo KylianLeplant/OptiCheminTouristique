@@ -6,6 +6,10 @@
 #include <random>
 #include <vector>
 
+/**
+ * Solver class implementing a Genetic Algorithm to solve the tourist path
+ * optimization problem.
+ */
 class Solver {
 private:
   std::mt19937 rng;
@@ -41,7 +45,8 @@ public:
   void mutate(Individual &indiv);
 
   /**
-   * Local Search : Intensification by swapping two POIs in the grand tour several times
+   * Local Search : Intensification by swapping two POIs in the grand tour
+   * several times
    */
   void intensifyBySwap(Individual &indiv, int iterations);
 
@@ -55,7 +60,13 @@ public:
    * @param tournament_size the pool of contestants for tourmament selection.
    * Must be smaller than population_size.
    * @param mutation_rate probability for a mutation
+   * @param intensify_rate fraction of individuals to intensify each generation
+   * @param intensify_iterations number of swap attempts during intensification
+   * @param intensify_generation_probability probability of each generation to
+   * feature an intensification phase
    */
   Solution solve(int time_limit, int population_size, float elitism_rate,
-                 int tournament_size, float mutation_rate, float intensify_rate, int intensify_iterations, float intensify_generation_probability);
+                 int tournament_size, float mutation_rate, float intensify_rate,
+                 int intensify_iterations,
+                 float intensify_generation_probability);
 };

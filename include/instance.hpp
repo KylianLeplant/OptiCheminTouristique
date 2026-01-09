@@ -1,10 +1,12 @@
 #pragma once
 #include "hostel.hpp"
 #include "poi.hpp"
-#include "point.hpp"
 #include <string>
 #include <vector>
 
+/**
+ * Represents one problem instance, including hostels, POIs, distances, and days
+ */
 class Instance {
 private:
   // The file this instance was loaded from

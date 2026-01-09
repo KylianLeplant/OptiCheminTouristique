@@ -44,7 +44,6 @@ Solution Solver::decode(const std::vector<int> &grand_tour) const {
   sol.pois_sequence.resize(inst.getDayCount());
   sol.start_dates.resize(inst.getDayCount(), 0.0f);
 
-  // --- CHANGED: Use a mask to track visited POIs instead of a linear index ---
   std::vector<char> visited(grand_tour.size(), 0);
 
   int current_start_hostel = inst.getStartingHostelID();
@@ -56,17 +55,16 @@ Solution Solver::decode(const std::vector<int> &grand_tour) const {
     int current_poi_id = -1;
     int current_hostel_id = current_start_hostel;
 
-    // --- CHANGED: Iterate through the WHOLE tour for every day ---
-    // This implements the "Sieve": if a POI doesn't fit, we skip it (continue)
-    // and try the next one, filling the day as tightly as possible.
+    // If a POI doesn't fit, we skip it (continue)
+    // and try the next one, filling the day as much as possible.
     for (size_t i = 0; i < grand_tour.size(); ++i) {
 
       if (visited[i])
-        continue; // Skip POIs already assigned to previous days/slots
+        continue;
 
       int candidate_poi = grand_tour[i];
 
-      // A. Calculate travel time
+      // Calculate travel time
       float dist = 0.0f;
       if (current_poi_id == -1) {
         dist = inst.getDistanceHostelPOI(current_hostel_id, candidate_poi);
@@ -78,12 +76,12 @@ Solution Solver::decode(const std::vector<int> &grand_tour) const {
       float opening = inst.getPOIOpeningTime(candidate_poi);
       float closing = inst.getPOIClosingTime(candidate_poi);
 
-      // B. Handle Time Windows
+      // Handle Time Windows
       if (arrival < opening) {
         arrival = opening;
       }
 
-      // C. Check Validity
+      // Check Validity
       bool possible = true;
 
       if (arrival > closing) {
@@ -114,7 +112,7 @@ Solution Solver::decode(const std::vector<int> &grand_tour) const {
       }
 
       if (possible) {
-        // D. Commit the move
+        // Commit the move
         sol.pois_sequence[day].push_back(candidate_poi);
         sol.score_value += (int)inst.getPOIScore(candidate_poi);
         current_time = arrival;
@@ -123,12 +121,9 @@ Solution Solver::decode(const std::vector<int> &grand_tour) const {
 
         visited[i] = 1; // Mark as used so we don't visit it again later
       }
-      // E. ELSE: Do nothing! (This is the "continue" logic)
-      // We just loop to i+1 and try to fit the NEXT candidate into the
-      // remaining time.
     }
 
-    // 2. End of Day : Choose intermediate Hostel
+    // End of Day : Choose intermediate Hostel
     if (day < inst.getDayCount() - 1) {
 
       // Look ahead: Find the very first unvisited POI in the grand tour
@@ -217,33 +212,35 @@ void Solver::mutate(Individual &ind) {
 }
 
 void Solver::intensifyBySwap(Individual &indiv, int iterations) {
-    Individual copy = indiv;
-    int size = (int)copy.grand_tour.size();
-    if (size < 2)
-      return;
+  Individual copy = indiv;
+  int size = (int)copy.grand_tour.size();
+  if (size < 2)
+    return;
 
-    std::uniform_int_distribution<int> dist(0, size - 1);
+  std::uniform_int_distribution<int> dist(0, size - 1);
 
-    int fail_in_a_row = 0;
-    for (int it = 0; it < iterations; ++it) {
-      int i = dist(rng);
-      int j = dist(rng);
-      while (i == j) {
-        j = dist(rng);
-      }
-      std::swap(copy.grand_tour[i], copy.grand_tour[j]);
-      Solution s = decode(copy.grand_tour);
-      if (s.score_value > decode(indiv.grand_tour).score_value) {
-        indiv = copy;
-        indiv.fitness = s.score_value;
-      } else {
-        copy = indiv;
-      }
+  int fail_in_a_row = 0;
+  for (int it = 0; it < iterations; ++it) {
+    int i = dist(rng);
+    int j = dist(rng);
+    while (i == j) {
+      j = dist(rng);
+    }
+    std::swap(copy.grand_tour[i], copy.grand_tour[j]);
+    Solution s = decode(copy.grand_tour);
+    if (s.score_value > decode(indiv.grand_tour).score_value) {
+      indiv = copy;
+      indiv.fitness = s.score_value;
+    } else {
+      copy = indiv;
     }
   }
+}
 
 Solution Solver::solve(int time_limit, int population_size, float elitism_rate,
-                       int tournament_size, float mutation_rate, float intensify_rate, int intensify_iterations, float intensify_generation_probability) {
+                       int tournament_size, float mutation_rate,
+                       float intensify_rate, int intensify_iterations,
+                       float intensify_generation_probability) {
   auto start_time = std::chrono::high_resolution_clock::now();
 
   std::vector<Individual> population(population_size);
@@ -261,8 +258,6 @@ Solution Solver::solve(int time_limit, int population_size, float elitism_rate,
 
   int generation = 0;
 
-
-
   while (true) {
     auto now = std::chrono::high_resolution_clock::now();
     if (std::chrono::duration_cast<std::chrono::seconds>(now - start_time)
@@ -274,15 +269,13 @@ Solution Solver::solve(int time_limit, int population_size, float elitism_rate,
               [](const Individual &a, const Individual &b) {
                 return a.fitness > b.fitness;
               });
-              
+
     std::vector<Individual> next_gen;
 
     int elites = (int)(population_size * elitism_rate);
     for (int i = 0; i < elites; ++i) {
       next_gen.push_back(population[i]);
     }
-    
-    
 
     while (next_gen.size() < population_size) {
       int best_idx = -1;
@@ -311,9 +304,11 @@ Solution Solver::solve(int time_limit, int population_size, float elitism_rate,
     }
     population = next_gen;
     generation++;
-    if (std::uniform_real_distribution<float>(0, 1)(rng) < intensify_generation_probability){
+    if (std::uniform_real_distribution<float>(0, 1)(rng) <
+        intensify_generation_probability) {
       for (int i = 0; i < (int)(population_size * intensify_rate); ++i) {
-        float index = std::uniform_real_distribution<float>(0, population_size-1)(rng);
+        float index =
+            std::uniform_real_distribution<float>(0, population_size - 1)(rng);
         intensifyBySwap(population[index], intensify_iterations);
       }
     }

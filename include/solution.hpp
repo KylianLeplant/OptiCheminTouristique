@@ -1,7 +1,6 @@
 #pragma once
 
 #include "instance.hpp"
-#include <set>
 #include <vector>
 
 // Represents one possible solution for a problem instance.

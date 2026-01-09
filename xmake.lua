@@ -1,14 +1,12 @@
 add_rules("mode.debug", "mode.release")
+add_rules("plugin.compile_commands.autoupdate", {outputdir = "."})
 
 set_languages("cxx17")
-
-add_requires("raylib")
 
 target("OptiChemin")
     set_kind("binary")
     add_files("src/*.cpp")
     add_includedirs("include")
-    add_packages("raylib")
     add_rules("plugin.compile_commands.autoupdate")
     set_rundir("$(projectdir)")
 
@@ -28,8 +26,6 @@ target("OptiChemin")
     -- !!! END of the is_mode check !!!
 
 
--- MOVED OUTSIDE: This task must be visible regardless of the current mode
--- I renamed it to "benchmark" to avoid confusion with the "release" mode name
 task("benchmark")
     set_menu({
         usage = "xmake benchmark",

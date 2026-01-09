@@ -35,3 +35,13 @@ Si vous n'avez pas `xmake` et que vous ne souhaitez pas l'installer, vous pouvez
 Le programme peut être compilé (avec les optimisations) et lancé avec la commande `make benchmark`.
 
 Attention ! Le Makefile n'a **pas été testé sur Windows**. Toute erreur liée à l'utilisation de Windows est honnêtement bien méritée.
+
+### Troubleshooting
+
+Si le projet ne fonctionne pas correctement, avant de nous enlever des points :
+
+1. Vérifier que vous avez rentré les bons chemins de fichiers dans le fichier `main.cpp`
+2. Vérifier que ces chemins sont cohérents avec ceux contenus dans `Data/data.txt`
+3. Vérifier que vous n'essayez pas de compiler avec `make` et le Makefile depuis Windows
+4. Vérifier que vous lancez l'exécutable depuis la racine du dossier, afin de ne pas casser les liens de fichier relatifs.
+5. Si vous voyez des erreurs causées par l'inclusion des fichiers headers, vérifiez que vous avez compilé avec `xmake` et / ou que vous avez bien un fichier `compile_commands.json` qui permet à votre IDE de trouver les fichiers headers. Ce fichier n'est pas nécessaire pour la compilation et l'exécution.

@@ -72,7 +72,7 @@ int main() {
 
           // Run Genetic Algorithm
           Solution best_sol =
-              solv.solve(59,    // Time Limit (seconds)
+              solv.solve(60,    // Time Limit (seconds)
                          1000,  // Population Size
                          0.02f, // Elitism Rate
                          10,    // Tournament Size
@@ -86,15 +86,22 @@ int main() {
           auto chrono_end = std::chrono::system_clock::now();
           std::chrono::duration<double> elapsed = chrono_end - chrono_start;
 
+          // Retrieve the time for the best solution
+          auto best_solution_time = best_sol.resolution_time;
+
           // End Resolution
           std::cout << " Fin de résolution de " << s_nom_instance << std::endl;
+          std::cout << " Temps écoulé : " << elapsed.count() << " secondes"
+                    << std::endl;
+          std::cout << " Meilleure solution trouvée en : " << best_solution_time
+                    << " secondes" << std::endl;
 
           // Write to file if valid
           if (best_sol.isValid(instance)) {
-            fichier_Sortie << s_chemin_instance << "\t" << elapsed.count()
+            fichier_Sortie << s_chemin_instance << "\t" << best_solution_time
                            << "\t" << best_sol.score_value << std::endl;
           } else {
-            fichier_Sortie << s_chemin_instance << "\t" << elapsed.count()
+            fichier_Sortie << s_chemin_instance << "\t" << best_solution_time
                            << "\t"
                            << "INVALID" << std::endl;
           }

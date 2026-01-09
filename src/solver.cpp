@@ -257,6 +257,8 @@ Solution Solver::solve(int time_limit, int population_size, float elitism_rate,
   }
 
   int generation = 0;
+  auto best_solution_time = std::chrono::high_resolution_clock::now();
+  float best_solution_score = 0.0f;
 
   while (true) {
     auto now = std::chrono::high_resolution_clock::now();
@@ -313,6 +315,12 @@ Solution Solver::solve(int time_limit, int population_size, float elitism_rate,
       }
     }
 
+    // If the best individual improved, edit the timestamp
+    if (population[0].fitness > best_solution_score) {
+      best_solution_score = (float)population[0].fitness;
+      best_solution_time = now;
+    }
+
     if (generation % 100 == 0) {
       int best = population[0].fitness;
       float average = std::accumulate(population.begin(), population.end(), 0,
@@ -337,5 +345,8 @@ Solution Solver::solve(int time_limit, int population_size, float elitism_rate,
             });
 
   std::cout << "Final Best Score: " << population[0].fitness << std::endl;
-  return decode(population[0].grand_tour);
+  Solution best_solution = decode(population[0].grand_tour);
+  best_solution.resolution_time =
+      std::chrono::duration<double>(best_solution_time - start_time).count();
+  return best_solution;
 }

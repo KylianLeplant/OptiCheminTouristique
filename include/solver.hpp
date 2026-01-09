@@ -64,9 +64,10 @@ public:
    * @param intensify_iterations number of swap attempts during intensification
    * @param intensify_generation_probability probability of each generation to
    * feature an intensification phase
+   * @param verbose whether to print progress to console
    */
   Solution solve(int time_limit, int population_size, float elitism_rate,
                  int tournament_size, float mutation_rate, float intensify_rate,
                  int intensify_iterations,
-                 float intensify_generation_probability);
+                 float intensify_generation_probability, bool verbose = false);
 };

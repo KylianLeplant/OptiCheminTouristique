@@ -240,7 +240,7 @@ void Solver::intensifyBySwap(Individual &indiv, int iterations) {
 Solution Solver::solve(int time_limit, int population_size, float elitism_rate,
                        int tournament_size, float mutation_rate,
                        float intensify_rate, int intensify_iterations,
-                       float intensify_generation_probability) {
+                       float intensify_generation_probability, bool verbose) {
   auto start_time = std::chrono::high_resolution_clock::now();
 
   std::vector<Individual> population(population_size);
@@ -320,12 +320,14 @@ Solution Solver::solve(int time_limit, int population_size, float elitism_rate,
                                         return sum + ind.fitness;
                                       }) /
                       (float)population.size();
-      std::cout << "Generation " << generation << " | Best Score: " << best
-                << " | Average Score: " << average << " | Time: "
-                << std::chrono::duration_cast<std::chrono::seconds>(now -
-                                                                    start_time)
-                       .count()
-                << "s" << std::endl;
+      if (verbose) {
+        std::cout << "Generation " << generation << " | Best Score: " << best
+                  << " | Average Score: " << average << " | Time: "
+                  << std::chrono::duration_cast<std::chrono::seconds>(
+                         now - start_time)
+                         .count()
+                  << "s" << std::endl;
+      }
     }
   }
 

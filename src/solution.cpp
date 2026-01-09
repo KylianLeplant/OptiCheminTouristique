@@ -7,7 +7,7 @@
 Solution::Solution() : score_value(0) {}
 Solution::~Solution() = default;
 
-bool Solution::isValid(const Instance &inst) const {
+bool Solution::isValid(const Instance &inst, bool verbose) const {
 
   // CHECK LIST
   // 1. The number of intermediate hostels matches the number of days - 1
@@ -20,7 +20,9 @@ bool Solution::isValid(const Instance &inst) const {
   // 8. The duration of each day is within the allowed duration
   // 9. The calculated score matches the stored score_value
 
-  std::cout << "Starting solution validation...\n";
+  if (verbose) {
+    std::cout << "Starting solution validation...\n";
+  }
 
   bool valid = true;
 
@@ -29,7 +31,7 @@ bool Solution::isValid(const Instance &inst) const {
     valid = false;
     std::cout << "Error : Incorrect number of intermediate hostels.\n";
   }
-  if (valid) {
+  if (valid && verbose) {
     std::cout << "Passed intermediate hostels count check.\n";
   }
 
@@ -43,7 +45,7 @@ bool Solution::isValid(const Instance &inst) const {
                 << intermediate_hostels[hostel_index] << ".\n";
     }
   }
-  if (valid) {
+  if (valid && verbose) {
     std::cout << "Passed intermediate hostels ID validity check.\n";
   }
 
@@ -52,7 +54,7 @@ bool Solution::isValid(const Instance &inst) const {
     valid = false;
     std::cout << "Error : POI sequence size does not match day count.\n";
   }
-  if (valid) {
+  if (valid && verbose) {
     std::cout << "Passed POI sequence count check.\n";
   }
 
@@ -69,7 +71,7 @@ bool Solution::isValid(const Instance &inst) const {
       }
     }
   }
-  if (valid) {
+  if (valid && verbose) {
     std::cout << "Passed POI ID validity check.\n";
   }
 
@@ -87,7 +89,7 @@ bool Solution::isValid(const Instance &inst) const {
       }
     }
   }
-  if (valid) {
+  if (valid && verbose) {
     std::cout << "Passed POI uniqueness check.\n";
   }
 
@@ -150,7 +152,7 @@ bool Solution::isValid(const Instance &inst) const {
       }
     }
   }
-  if (valid) {
+  if (valid && verbose) {
     std::cout << "Passed POI arrival time check.\n";
   }
 
@@ -159,7 +161,7 @@ bool Solution::isValid(const Instance &inst) const {
     valid = false;
     std::cout << "Error : Start dates size does not match day count.\n";
   }
-  if (valid) {
+  if (valid && verbose) {
     std::cout << "Passed start dates count check.\n";
   }
 
@@ -171,7 +173,7 @@ bool Solution::isValid(const Instance &inst) const {
       std::cout << "Error : Invalid start date for day " << day << ".\n";
     }
   }
-  if (valid) {
+  if (valid && verbose) {
     std::cout << "Passed start dates validity check.\n";
   }
 
@@ -189,7 +191,7 @@ bool Solution::isValid(const Instance &inst) const {
     std::cout << "Error : Score mismatch. Calculated: " << calculated_score
               << ", Expected: " << score_value << ".\n";
   }
-  if (valid) {
+  if (valid && verbose) {
     std::cout << "Passed score validity check.\n";
   }
 

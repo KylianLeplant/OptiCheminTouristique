@@ -1,2 +1,3 @@
  Fichier données	 Tps de résolution 	 Best solution
- Fichier données	 Tps de résolution 	 Best solution
+Data/Inst1.txt	60.0011	816
+Data/Inst2.txt	59.9998	876

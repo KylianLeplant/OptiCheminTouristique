@@ -14,5 +14,5 @@ public:
   Solution();
   virtual ~Solution();
 
-  bool isValid(const Instance &inst) const;
+  bool isValid(const Instance &inst, bool verbose = false) const;
 };

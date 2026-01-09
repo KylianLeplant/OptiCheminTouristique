@@ -14,26 +14,19 @@ const std::string data_file_list = "data.txt";
 const std::string output_file_list = "sortie.txt";
 
 int main() {
-  Instance inst(data_folder + "Inst6.txt");
+  Instance inst(data_folder + "Inst27.txt");
 
   Solver solv(inst, 65);
 
-  Solution best_sol = solv.solve(60,   // Time Limit (seconds)
-                                 3000,  // Population Size (Huge!)
-                                 0.1f, // Elitism Rate (Keep top 2%)
-                                 4,     // Tournament Size (Gentle pressure)
-                                 0.45f,  // Mutation Rate (Very High)
-                                 0.01f,   // Intensify Rate
-                                 10,       // Intensify Iterations
-                                 0.5f    // Intensify Generation Probability
+  Solution best_sol = solv.solve(60,    // Time Limit (seconds)
+                                 1000,  // Population Size (Huge!)
+                                 0.02f, // Elitism Rate (Keep top 2%)
+                                 10,    // Tournament Size (Gentle pressure)
+                                 0.3f,  // Mutation Rate (Very High)
+                                 0.01f, // Intensify Rate
+                                 100,   // Intensify Iterations
+                                 0.01f  // Intensify Generation Probability
   );
-  
-
-
-
-  
-
-    
 
   // Solution sol;
 
@@ -46,25 +39,25 @@ int main() {
   //     {24, 32, 40, 33, 25, 19, 26, 34, 41, 47, 52, 56, 59, 61});
   // sol.score_value = 816;
 
-  //bool valid = best_sol.isValid(inst);
-  //if (valid) {
-  //  std::cout << "Solution is valid.\n";
-  //  std::cout << "Total Score: " << best_sol.score_value << "\n";
-  //  // Display solution details
-  //  for (size_t day = 0; day < best_sol.pois_sequence.size(); ++day) {
-  //    std::cout << "Day " << day + 1 << ":\n";
-  //    std::cout << "  Start Date: " << best_sol.start_dates[day] << "\n";
-  //    std::cout << "  Intermediate Hostel: "
-  //              << best_sol.intermediate_hostels[day] << "\n";
-  //    std::cout << "  POIs Visited: ";
-  //    for (const auto &poi_id : best_sol.pois_sequence[day]) {
-  //      std::cout << poi_id << " ";
-  //    }
-  //    std::cout << "\n";
-  //  }
-  //} else {
-  //  std::cout << "Solution is invalid.\n";
-  //}
+  // bool valid = best_sol.isValid(inst);
+  // if (valid) {
+  //   std::cout << "Solution is valid.\n";
+  //   std::cout << "Total Score: " << best_sol.score_value << "\n";
+  //   // Display solution details
+  //   for (size_t day = 0; day < best_sol.pois_sequence.size(); ++day) {
+  //     std::cout << "Day " << day + 1 << ":\n";
+  //     std::cout << "  Start Date: " << best_sol.start_dates[day] << "\n";
+  //     std::cout << "  Intermediate Hostel: "
+  //               << best_sol.intermediate_hostels[day] << "\n";
+  //     std::cout << "  POIs Visited: ";
+  //     for (const auto &poi_id : best_sol.pois_sequence[day]) {
+  //       std::cout << poi_id << " ";
+  //     }
+  //     std::cout << "\n";
+  //   }
+  // } else {
+  //   std::cout << "Solution is invalid.\n";
+  // }
 
   return 0;
 }
